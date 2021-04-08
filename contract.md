@@ -1,4 +1,4 @@
-#CS 225 Data Structures ~ Team Contract
+# CS 225 Data Structures ~ Team Contract
 
 Katrina Pang ~ kpang3
 Jing Lin ~ jlin208
