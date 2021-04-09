@@ -22,6 +22,6 @@ Each member is expected to work no less than 2 and no more than 6 hours per week
 All conflicts within the team will be decided by a fistfight to the death. The winner will decide who was right and who was wrong.
 ## Signatures
 I, Jingwei Lin (jlin208) agree to the terms of this contract.
-I, ___ agree to the terms of this contract.
+I, Benjamin Thuma (bthuma2) agree to the terms of this contract.
 I, ___ agree to the terms of this contract.
 I, ___ agree to the terms of this contract.
