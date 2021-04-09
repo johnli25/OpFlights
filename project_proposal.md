@@ -1,4 +1,4 @@
-#Final Project Proposal (kpang3, jlin208, johnwl2, bthuma2)
+# Final Project Proposal (kpang3, jlin208, johnwl2, bthuma2)
 
 ## **Leading Question:** 
 Given two cities, the goal is to find the shortest route between them. Shortest will be defined as the lowest distance required to travel between the two cities. 
