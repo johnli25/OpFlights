@@ -23,5 +23,5 @@ All conflicts within the team will be decided by a fistfight to the death. The w
 ## Signatures
 I, Jingwei Lin (jlin208) agree to the terms of this contract.
 I, Benjamin Thuma (bthuma2) agree to the terms of this contract.
-I, ___ agree to the terms of this contract.
+I, Katrina Pang agree to the terms of this contract.
 I, ___ agree to the terms of this contract.
