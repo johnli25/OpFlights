@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Airport.h"
+#include "Route.h"
 
 bool isValidAirport(const std::string str){
 	// Holds the number of commas in the string
@@ -58,6 +59,45 @@ Airport * processAirport(const std::string str){
 	return airport;
 }
 
+bool isValidRoute(const std::string str){
+	// Holds the number of commas in the string
+	int numCommas = 0;
+	// Goes through the string to count the number of commas
+	for (unsigned i = 0; i < str.size(); i++){
+		if (str[i] == ','){
+			numCommas++;
+		}
+	}
+	// For it to be a valid route, there must be 8 commas
+	if (numCommas == 8){
+		return true;
+	}
+	return false;
+}
+
+Route * processRoute(const std::string str){
+	// Creates the stringstream of the string
+	std::stringstream ss(str);
+	// Vector containing each entry in the string
+	std::vector<std::string> v;
+	// Goes through the stringstream until it is done
+	while (ss.good()){
+		std::string substring;
+		// Gets the subtring separated by commas and store it in the vector
+		getline(ss, substring, ',');
+		v.push_back(substring);
+	}
+	Route * route = new Route;
+	// Convert the 3rd index substring, which is the id of the source airport to stringstream
+	// in order to convert to an int
+	std::stringstream temp(v[3]);
+	temp >> route->sourceAirportId;
+	// The 5th substring is the id of the desitnation airport which will be converted to an int
+	std::stringstream temp2(v[5]);
+	temp2 >> route->destinationAirportId;
+	return route;
+}
+
 std::vector<Airport*> file_to_Airport(const std::string & filename) {
 	std::vector<Airport *> airports;
 	// Create an input stream
@@ -80,4 +120,28 @@ std::vector<Airport*> file_to_Airport(const std::string & filename) {
 		}
 	}
 	return airports;
+}
+
+std::vector<Route*> file_to_Route(const std::string & filename){
+	std::vector<Route*> routes;
+	// Create an input stream
+	std::ifstream inFile;
+	// Open the data file
+	inFile.open(filename);
+	// Check For Error
+	if (inFile.fail()){
+		// Close the file if there is an error
+		std::cerr << "Error opening file" << std::endl;
+		exit(1);
+	}
+	std::string temp;
+	// Read file line by line until end
+	while (getline(inFile, temp)){
+		// Check if it is a valid airport
+		if (isValidRoute(temp)){
+			// If it is, process the line and push it into the vector
+			routes.push_back(processRoute(temp));
+		}
+	}
+	return routes;
 }
