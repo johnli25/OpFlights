@@ -1,17 +1,19 @@
 #include <string>
+#include "Airport.h"
 
-// adapted from CS 225 Final Project AMA
+// Function that determine if the string is a valid airport, meaning it contains
+// every entry of data.
+// @param str A string containing a line from the airport.dat file
+// @return true if it is a valid airport
+bool isValidAirport(const std::string str);
 
-/** 
- * Reads a file into a string
- * @param filename The file to read from 
- * @return a string containing filename's contents
- */
-std::string file_to_string(const std::string & filename);
+// Goes through the string containing a valid airport and intializes the corresponding member variables.
+// @param str A string containing data for a valid airport
+// @return a pointer to a airport
+Airport * processAirport(const std::string str);
 
-/** 
- * Reads a file into a vector
- * @param filename The file to read from
- * @return a vector containing filename's contents
- */
-std::vector<std::string> file_to_vector(const std::string & filename);
+// Reads a airport file
+// @param filename The file to read from
+// @return a string containing filename's contents
+
+std::vector<Airport*> file_to_Airport(const std::string & filename);
