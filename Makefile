@@ -27,7 +27,7 @@ readFromFile.o: main.cpp readFromFile.cpp
 	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Airport.cpp Route.cpp
 
 test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airport.cpp route.cpp
-	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp $(LDFLAGS) -o test
+	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airport.cpp route.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
