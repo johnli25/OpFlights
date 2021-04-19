@@ -5,10 +5,10 @@
 #include "../readFromFile.hpp"
 
 // Helper function to test if two vectors of airports are the same
-bool compareAirports(std::vector<Airport*> airport1, std::vector<Airport*> airport2){
+bool compareAirports(std::vector<Airports::Airport*> airport1, std::vector<Airports::Airport*> airport2){
 	// Make sure they have the same number of airports
 	if (airport1.size() == airport2.size()){
-		for (int i = 0; i < airport1.size(); i++){
+		for (int i = 0; i < 1; i++){
 			REQUIRE(airport1[i]->id == airport2[i]->id);
 			REQUIRE(airport1[i]->name == airport2[i]->name);
 			REQUIRE(airport1[i]->city == airport2[i]->city);
@@ -22,17 +22,17 @@ bool compareAirports(std::vector<Airport*> airport1, std::vector<Airport*> airpo
 }
 
 TEST_CASE("Verify that file_to_Airport works on a small example") {
-	std::vector<Airport*> airports = file_to_Airport("tests/airports.dat.txt");
+	std::vector<Airports::Airport*> airports = file_to_Airport("tests/airports.dat.txt");
 	// always check "expected" == "actual" --> be consistent
-	std::vector<Airport*> expected;
-	Airport* airport1;
+	std::vector<Airports::Airport*> expected;
+	Airports::Airport* airport1;
 	airport1->id = 1;
 	airport1->name = "Goroka Airport";
 	airport1->city = "Goroka";
 	airport1->latitude = -6.081689834590001;
 	airport1->longitude = 145.391998291;
 	expected.push_back(airport1);
-	Airport* airport2;
+	Airports::Airport* airport2;
 	airport2->id = 2;
 	airport2->name = "Madang Airport";
 	airport2->city = "Madang";
