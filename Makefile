@@ -2,7 +2,7 @@
 EXENAME = finalproj
 
 # Object Types
-OBJS = readFromFile.o main.o Airport.o Route.o
+OBJS = readFromFile.o main.o Airports.o
 
 # Compilation Flags
 CXX = clang++

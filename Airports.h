@@ -23,8 +23,9 @@ struct Airports{
 	};
 
 	// Vector of airports
-	std::vector<Airport> airports;
-
+	std::vector<Airport*> airports;
+	// Sets the airports
+	void setAirports(std::vector<Airport*> * ap);
 	// Sets the distance between the source and destination airports of the route
 	// @param pointer to the route
 	// @return nothing
