@@ -1,10 +1,10 @@
 #include "A_search.h"
 
-//https://www.youtube.com/watch?v=ySN5Wnu88nE - this ones really good 
+//https://www.youtube.com/watch?v=ySN5Wnu88nE - this ones really good
 //https://www.youtube.com/watch?v=6TsL96NAZCo
 
 
-A_search(queue<airport> airports, airport start, airport end){
+A_search(std::vector<Airport*> airports, Airport* source, Airport* destination){
   queue<int> weight;
   return A_search(weight, airports, start, end);
 }
@@ -14,10 +14,10 @@ A_search(queue<airport> airports, airport start, airport end){
 //weight should be pushed and popped at the same time
 //and will hold weight/cost of an airport
 
-A_search(queue<int> weight, queue<airport> queue, airport* curr, airport* end){ //recursive
-  int cost = 0;//edge length + distance to goal 
+A_search(queue<int> weight, queue<Airport> queue, Airport* curr, Airport* end){ //recursive
+  int cost = 0;//edge length + distance to goal
   for(unsigned long i = 0; i < curr->routes.size(); i++){
-    airport* currRoute = findAirport(curr.routes[i].destinationAirportId); 
+    airport* currRoute = findAirport(curr.routes[i].destinationAirportId);
     // Get their coordinates, taken from calculateDistance
     double currLat = currAirport->latitude;
     double currLong = currAirport->longitude;
