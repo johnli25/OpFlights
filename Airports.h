@@ -7,9 +7,9 @@ struct Airports{
 
 	struct Route{
 		int sourceAirportId;
-	  int destinationAirportId;
+	    int destinationAirportId;
 		// Euclidean distance between source and destination airports
-	  double distance;
+	  	double distance;
 	};
 
 	struct Airport{

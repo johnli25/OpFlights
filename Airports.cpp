@@ -42,4 +42,11 @@ void Airports::calculateDistance(Route* route){
 
   // Calculate the euclidean distance between the two airports
   route->distance = std::sqrt(std::pow(sourceLat-destinationLat, 2) + std::pow(sourceLong-destinationLong, 2));
+  // for (size_t i = 0; i < ; i++){
+  //   routes.push_back();
+  // }
+  sourceAirport->routes.push_back(* route);
+  destinationAirport->routes.push_back(* route);
 }
+
+
