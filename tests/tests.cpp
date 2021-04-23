@@ -42,8 +42,8 @@ TEST_CASE("Verify that file_to_Airport works on a small example") {
 	REQUIRE(compareAirports(expected,airports));
 }
 
-TEST_CASE("Verify that file_to_Route works on a small example") {
-	std::vector<Airports::Route*> routes = file_to_Route("tests/routes.dat.txt");
+TEST_CASE("Verify that file_to_Route works on a medium example") {
+	std::vector<Airports::Route*> routes = file_to_Route("tests/routesMedium.dat.txt");
 	REQUIRE(2965 == routes[0]->sourceAirportId);
 	REQUIRE(2990 == routes[0]->destinationAirportId);
 	REQUIRE(2966 == routes[1]->sourceAirportId);
@@ -56,4 +56,37 @@ TEST_CASE("Verify that file_to_Route works on a small example") {
 	REQUIRE(4078 == routes[4]->destinationAirportId);
 	REQUIRE(4029 == routes[5]->sourceAirportId);
 	REQUIRE(2990 == routes[5]->destinationAirportId);
+}
+
+TEST_CASE("Verify that custom constructor work"){
+	std::vector<Airports::Airport*> airports = file_to_Airport("tests/airports.dat.txt");
+	std::vector<Airports::Route*> routes = file_to_Route("tests/routes.dat.txt");
+	Airports airports1(airports, routes);
+	REQUIRE(airports1.airports[0]->id == 1);
+	REQUIRE(airports1.airports[0]->name == "Goroka Airport");
+	REQUIRE(airports1.airports[0]->city == "Goroka");
+	REQUIRE(airports1.airports[1]->id == 2);
+	REQUIRE(airports1.airports[1]->name == "Madang Airport");
+	REQUIRE(airports1.airports[1]->city == "Madang");
+	REQUIRE(airports1.allRoutes[0]->sourceAirportId == 2);
+	REQUIRE(airports1.allRoutes[0]->destinationAirportId == 1);
+	REQUIRE(airports1.allRoutes[1]->sourceAirportId == 1);
+	REQUIRE(airports1.allRoutes[1]->destinationAirportId == 2);
+}
+
+TEST_CASE("Verify that copy constructor work"){
+	std::vector<Airports::Airport*> airports = file_to_Airport("tests/airports.dat.txt");
+	std::vector<Airports::Route*> routes = file_to_Route("tests/routes.dat.txt");
+	Airports airports1(airports, routes);
+	Airports airports2(airports1);
+	REQUIRE(airports1.airports[0]->id == airports2.airports[0]->id);
+	REQUIRE(airports1.airports[0]->name == airports2.airports[0]->name);
+	REQUIRE(airports1.airports[0]->city == airports2.airports[0]->city);
+	REQUIRE(airports1.airports[1]->id == airports2.airports[1]->id);
+	REQUIRE(airports1.airports[1]->name == airports2.airports[1]->name);
+	REQUIRE(airports1.airports[1]->city == airports2.airports[1]->city);
+	REQUIRE(airports1.allRoutes[0]->sourceAirportId == airports2.allRoutes[0]->sourceAirportId);
+	REQUIRE(airports1.allRoutes[0]->destinationAirportId == airports2.allRoutes[0]->destinationAirportId);
+	REQUIRE(airports1.allRoutes[1]->sourceAirportId == airports2.allRoutes[1]->sourceAirportId);
+	REQUIRE(airports1.allRoutes[1]->destinationAirportId == airports2.allRoutes[1]->destinationAirportId);
 }

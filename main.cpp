@@ -25,13 +25,15 @@ int main() {
 	std::cout<<routes[0]->destinationAirportId<<std::endl;
 	std::cout<<routes[1]->sourceAirportId<<std::endl;
 	std::cout<<routes[1]->destinationAirportId<<std::endl;
-	Airports airportss;
-	airportss.setAirports(&airports);
+	Airports airportss(airports, routes);
+	Airports airportss2(airportss);
 	Airports::Airport* air = airportss.findAirport(1);
+	std::cout<<air->id<<std::endl;
+	air = airportss2.findAirport(1);
 	std::cout<<air->id<<std::endl;
 	air = airportss.findAirport(2);
 	std::cout<<air->id<<std::endl;
-	air = airportss.findAirport(9);
+	air = airportss2.findAirport(2);
 	std::cout<<air->id<<std::endl;
 	return 0;
 }

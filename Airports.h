@@ -7,9 +7,9 @@ struct Airports{
 
 	struct Route{
 		int sourceAirportId;
-	    int destinationAirportId;
+	  int destinationAirportId;
 		// Euclidean distance between source and destination airports
-	  	double distance;
+	 	double distance;
 	};
 
 	struct Airport{
@@ -22,18 +22,28 @@ struct Airports{
 		std::vector<Route> routes;
 	};
 
+	// Default constructor; does nothing
+	Airports();
+
+	// Custom constructor; intializes the airports and allRoutes vector; sets up the routes
+	// @param vector of airports, vector of routes
+	Airports(std::vector<Airport*> ap, std::vector<Route*> routes);
+
+	// Copy constructor
+	// @param other airports that you want to copy
+	Airports(Airports const & other);
+
 	// Vector of airports
 	std::vector<Airport*> airports;
 
-	// Sets the airport of the class to the provided airport vector
-	// @param pointer to a vector of pointers to airports
+	// Vector of all routes on the map
+	std::vector<Route*> allRoutes;
+
+	// Sets the distance between the source and destination airports of each route
+	// Also assigns each route to their airports
+	// @param Vector of routes
 	// @return nothing
-	void setAirports(std::vector<Airport*> * ap);
-	
-	// Sets the distance between the source and destination airports of the route
-	// @param pointer to the route
-	// @return nothing
-	void calculateDistance(Route* route);
+	void processRoutes(std::vector<Airports::Route*> routes);
 
 	// Returns a pointer to the airport with id
 	// @param id of the airport
@@ -45,5 +55,4 @@ struct Airports{
 	// @param left edge of subarray, right edge of subarray, id of airport
 	// @return pointer to airport if found; else NULL
 	Airport* _findAirport(int l, int r, int id);
-
 };
