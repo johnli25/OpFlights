@@ -4,3 +4,4 @@
 1) Finished function to read and convert data into array form.
 2) Finished function to weight of edges.
 3) Finished other misc functions (find airport given ID, etc.)
+4) Finished filling in the airports' routes vector (with the source and destination Airport)
