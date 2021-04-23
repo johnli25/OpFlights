@@ -31,5 +31,7 @@ int main() {
 	std::cout<<air->id<<std::endl;
 	air = airportss.findAirport(2);
 	std::cout<<air->id<<std::endl;
+	air = airportss.findAirport(9);
+	std::cout<<air->id<<std::endl;
 	return 0;
 }

@@ -6,8 +6,8 @@ Airports::Airport* Airports::findAirport(int id){
 }
 
 Airports::Airport* Airports::_findAirport(int l, int r, int id){
-  if (r >= 1){
-    int mid = l + (r-1)/2;
+  if (r >= 0){
+    int mid = (l + r)/2;
     // If the airport is at the middle, return pointer to the airport
     if (airports[mid]->id == id){
       return airports[mid];
@@ -38,7 +38,7 @@ void Airports::calculateDistance(Route* route){
   double sourceLong = sourceAirport->longitude;
   double destinationLat = destinationAirport->latitude;
   double destinationLong = destinationAirport->longitude;
-  
+
   // Calculate the euclidean distance between the two airports
   route->distance = std::sqrt(std::pow(sourceLat-destinationLat, 2) + std::pow(sourceLong-destinationLong, 2));
 }
