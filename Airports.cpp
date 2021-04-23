@@ -24,6 +24,7 @@ Airports::Airport* Airports::_findAirport(int l, int r, int id){
 }
 
 void Airports::setAirports(std::vector<Airports::Airport*>* ap){
+  // Goes through every airport and adds it to the class vector
   for (unsigned i = 0; i < ap->size(); i++){
     airports.push_back(ap->at(i));
   }
