@@ -2,7 +2,7 @@
 EXENAME = finalproj
 
 # Object Types
-OBJS = readFromFile.o main.o Airport.o Route.o
+OBJS = readFromFile.o main.o Airports.o
 
 # Compilation Flags
 CXX = clang++
@@ -21,13 +21,13 @@ all : $(EXENAME)
 output_msg: ; $(CLANG_VERSION_MSG)
 
 $(EXENAME): output_msg $(OBJS)
-	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
+	$(LD) $(OBJS) -g $(LDFLAGS) -o $(EXENAME)
 
 readFromFile.o: main.cpp readFromFile.cpp
 	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Airports.cpp
 
 test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp 
-	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp $(LDFLAGS) -o test
+	$(LD) -g catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
