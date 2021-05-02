@@ -22,7 +22,7 @@ bool isValidAirport(const std::string str){
 	return false;
 }
 
-Airports::Airport * processAirport(const std::string str){
+Airports::Airport processAirport(const std::string str){
 	// Creates the stringstream of the string
 	std::stringstream ss(str);
 	// Vector containing each entry in the string
@@ -34,27 +34,27 @@ Airports::Airport * processAirport(const std::string str){
 		getline(ss, substring, ',');
 		v.push_back(substring);
 	}
-	Airports::Airport * airport = new Airports::Airport;
+	Airports::Airport airport;
 	// Convert the 0-th index substring, which is the id of the airport to stringstream
 	// in order to convert to an int
 	std::stringstream temp(v[0]);
-	temp >> airport->id;
+	temp >> airport.id;
 	// Get rid of the quotation marks
 	v[1].erase(v[1].begin());
 	v[1].erase(v[1].begin()+v[1].length()-1);
 	// The 1st index substring holds the name of the airport
-	airport->name = v[1];
+	airport.name = v[1];
 	// Get rid of the quotation marks
 	v[2].erase(v[2].begin());
 	v[2].erase(v[2].begin()+v[2].length()-1);
 	// The 2nd index substring holds the name of the city
-	airport->city = v[2];
+	airport.city = v[2];
 	// The 6th substring is the latitude which will be converted to a float
 	std::stringstream temp2(v[6]);
-	temp2 >> airport->latitude;
+	temp2 >> airport.latitude;
 	// The 7th substring is the longitude which will be converted to a float
 	std::stringstream temp3(v[7]);
-	temp3 >> airport->longitude;
+	temp3 >> airport.longitude;
 	return airport;
 }
 
@@ -74,7 +74,7 @@ bool isValidRoute(const std::string str){
 	return false;
 }
 
-Airports::Route * processRoute(const std::string str){
+Airports::Route processRoute(const std::string str){
 	// Creates the stringstream of the string
 	std::stringstream ss(str);
 	// Vector containing each entry in the string
@@ -86,19 +86,19 @@ Airports::Route * processRoute(const std::string str){
 		getline(ss, substring, ',');
 		v.push_back(substring);
 	}
-	Airports::Route * route = new Airports::Airports::Route;
+	Airports::Route route;
 	// Convert the 3rd index substring, which is the id of the source airport to stringstream
 	// in order to convert to an int
 	std::stringstream temp(v[3]);
-	temp >> route->sourceAirportId;
+	temp >> route.sourceAirportId;
 	// The 5th substring is the id of the desitnation airport which will be converted to an int
 	std::stringstream temp2(v[5]);
-	temp2 >> route->destinationAirportId;
+	temp2 >> route.destinationAirportId;
 	return route;
 }
 
-std::vector<Airports::Airport*> file_to_Airport(const std::string & filename) {
-	std::vector<Airports::Airport *> airports;
+std::vector<Airports::Airport> file_to_Airport(const std::string & filename) {
+	std::vector<Airports::Airport> airports;
 	// Create an input stream
 	std::ifstream inFile;
 	// Open the data file
@@ -121,8 +121,8 @@ std::vector<Airports::Airport*> file_to_Airport(const std::string & filename) {
 	return airports;
 }
 
-std::vector<Airports::Route*> file_to_Route(const std::string & filename){
-	std::vector<Airports::Route*> routes;
+std::vector<Airports::Route> file_to_Route(const std::string & filename){
+	std::vector<Airports::Route> routes;
 	// Create an input stream
 	std::ifstream inFile;
 	// Open the data file
