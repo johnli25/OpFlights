@@ -41,7 +41,7 @@ Airports::Airports(Airports const & other){
     route.push_back(*ro);
     ro = ro->next;
   }
-  std::reverse(route.begin(), route.end());
+  //std::reverse(route.begin(), route.end());
   setRoutes(route);
 }
 
@@ -117,6 +117,9 @@ void Airports::insertFront(Route ro){
 }
 
 void Airports::setRoutes(std::vector<Airports::Route> ro){
+  // Reverse the order of the routes since it inserts at the front of the edge list
+  // Want the edge list to be in the same order as the route data
+  std::reverse(ro.begin(), ro.end());
   for (unsigned i = 0; i < ro.size(); i++){
     // Get the current route
     Airports::Route cur = ro[i];
