@@ -49,9 +49,8 @@ struct Airports{
 	Airports(Airports const & other);
 
 	// Destructor; deletes the edge list
-	//~Airports();
-
-	void deleteEdgeList();
+	~Airports();
+	
 	// Sets up the edge list and adjacency list
 	// @param Vector of routes
 	// @return nothing

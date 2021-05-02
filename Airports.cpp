@@ -45,26 +45,7 @@ Airports::Airports(Airports const & other){
   setRoutes(route);
 }
 
-/*
 Airports::~Airports(){
-  // If there are edges in the edge list
-  if (allRoutes != NULL){
-    // Get the head pointer to the edge list
-    Airports::Route * cur = allRoutes;
-    // While not at the end of the list
-    while (cur != NULL){
-      // Get the next node in the list
-      Airports::Route * next = cur->next;
-      // Delete the current node
-      delete cur;
-      // Move to the next node
-      cur = next;
-    }
-  }
-}
-*/
-
-void Airports::deleteEdgeList(){
   // If there are edges in the edge list
   if (allRoutes != NULL){
     // Get the head pointer to the edge list
