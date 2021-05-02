@@ -12,6 +12,8 @@ Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Rout
   for (unsigned i = 0; i < ap.size(); i++){
     airports[ap[i].id] = ap[i];
   }
+  // Edge list currently empty
+  allRoutes = NULL;
   setRoutes(ro);
 }
 
@@ -114,15 +116,22 @@ void Airports::insertFront(Route ro){
   route->destinationAirportId = ro.destinationAirportId;
   route->distance = ro.distance;
   route->prev = NULL;
-  // Get the current head pointer to the edge list
-  Airports::Route * temp = allRoutes;
-  // Make the current route the new head
-  allRoutes = route;
-  // Make the new head point to the previous head
-  route->next = temp;
-  // If there was a previous head, make it point back to the new head
-  if (temp != NULL){
+  // If there is a node already
+  if (allRoutes != NULL){
+    // Get the current head pointer to the edge list
+    Airports::Route * temp = allRoutes;
+    // Make the current route the new head
+    allRoutes = route;
+    // Make the new head point to the previous head
+    route->next = temp;
+    // Make the previous head point back to the new head
     temp->prev = route;
+  }else{
+    // There is no node in the edge list currently
+    // Make the current route the new head
+    allRoutes = route;
+    // It points to nothing
+    route->next = NULL;
   }
 }
 
