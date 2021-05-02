@@ -43,7 +43,9 @@ int main() {
 	std::cout<<air->id<<std::endl;
 	air = airportss2.findAirport(2);
 	std::cout<<air->id<<std::endl;
-	delete airportss;
-	delete airportss2;
+	airportss.deleteEdgeList();
+	airportss2.deleteEdgeList();
+	//delete airportss;
+	//delete airportss2;
 	return 0;
 }
