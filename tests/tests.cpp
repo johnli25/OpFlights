@@ -79,6 +79,8 @@ TEST_CASE("Verify that custom constructor work"){
 		REQUIRE(airports1.airports[id].latitude == airports[i].latitude);
 		REQUIRE(airports1.airports[id].longitude == airports[i].longitude);
 	}
+	// Check number of valid airports
+	REQUIRE(4 == airports1.numAirports);
 	// Get the pointer to the edge list
 	Airports::Route * cur = airports1.allRoutes;
 	int index = 0;
@@ -113,6 +115,8 @@ TEST_CASE("Verify that copy constructor work"){
 			}
 		}
 	}
+	// Check number of valid airports
+	REQUIRE(airports1.numAirports == airports2.numAirports);
 	// Check their edge lists
 	Airports::Route * cur1 = airports1.allRoutes;
 	Airports::Route * cur2 = airports2.allRoutes;

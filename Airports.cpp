@@ -3,12 +3,13 @@
 Airports::Airports(){
   allRoutes = NULL;
   airports.clear();
+  numAirports = 0;
 }
 
 Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Route> ro){
   // Resize the vertex table to the id of the last airport (since the data is in sorted order)
   airports.resize(ap.back().id+1);
-
+  numAirports = 0;
   // Puts each airport in the vertex table, with the index corresponding to its id
   for (unsigned i = 0; i < ap.size(); i++){
     airports[ap[i].id] = ap[i];
@@ -16,6 +17,8 @@ Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Rout
     airports[ap[i].id].distance = 0;
     airports[ap[i].id].heuristic = 0;
     airports[ap[i].id].visited = 0;
+    airports[ap[i].id].predecessorId = 0;
+    numAirports++;
   }
   // Edge list currently empty
   allRoutes = NULL;
@@ -27,6 +30,7 @@ Airports::Airports(Airports const & other){
   std::vector<Airport> ap = other.airports;
   // Resize the airport vector
   airports.resize(ap.size());
+  numAirports = other.numAirports;
   // Sets the airports
   for (Airport airport : ap){
     // Valid id's start at 1; 0 means uninitialized airport so not valid
@@ -38,6 +42,7 @@ Airports::Airports(Airports const & other){
       airports[airport.id].distance = airport.distance;
       airports[airport.id].heuristic = airport.heuristic;
       airports[airport.id].visited = airport.visited;
+      airports[airport.id].predecessorId = airport.predecessorId;
     }
   }
   // Clear the current edge list since it should be empty
@@ -77,6 +82,7 @@ Airports::Airport::Airport(){
   distance = 0;
   heuristic = 0;
   visited = 0;
+  predecessorId = 0;
 }
 
 Airports::Airport* Airports::findAirport(int id){

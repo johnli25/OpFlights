@@ -47,6 +47,7 @@ AirportTraversal::Iterator::Iterator(Airports * ap, AirportTraversal * trav, Air
   currentAirport = start;
 }
 
+// Work on this
 AirportTraversal::Iterator AirportTraversal::Iterator::operator++(){
   return AirportTraversal::Iterator();
 }

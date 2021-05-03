@@ -30,6 +30,8 @@ struct Airports{
 		double heuristic;
 		// 1 is already visited; 0 if not
 		bool visited;
+		// id of predecessor airport
+		int predecessorId;
 		// Default constructs an invalid airport
 		Airport();
 	};
@@ -42,9 +44,8 @@ struct Airports{
 	// Head pointer to linked list of all routes on the map; edge list
 	Route * allRoutes;
 
-	// Creates a new pointer to a route and inserts it to the front of the linked edge list
-	// @param route that is to be inserted (it must have all its variables set beside the pointers)
-	void insertFront(Route ro);
+	// Number of valid airports in the graph
+	int numAirports;
 
 	// Default constructor; does nothing
 	Airports();
@@ -60,6 +61,10 @@ struct Airports{
 	// Destructor; deletes the edge list
 	~Airports();
 
+	// Creates a new pointer to a route and inserts it to the front of the linked edge list
+	// @param route that is to be inserted (it must have all its variables set beside the pointers)
+	void insertFront(Route ro);
+
 	// Sets up the edge list and adjacency list
 	// @param Vector of routes
 	// @return nothing
@@ -70,6 +75,8 @@ struct Airports{
 	// @return pointer to the airport if found; else NULL
 	Airport* findAirport(int id);
 
+	// Resets the distance, heuristic, visited, and
+	void reset();
 /*
 	// Helper function that uses binary search to find the airport with id
 	// Can use binary search since the airport data is sorted by increasing id
