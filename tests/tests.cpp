@@ -129,6 +129,27 @@ TEST_CASE("Verify that copy constructor work"){
 	}
 }
 
+TEST_CASE("Verify that reset work"){
+	std::vector<Airports::Airport> airports = file_to_Airport("tests/airportsSmall.dat.txt");
+	std::vector<Airports::Route> routes = file_to_Route("tests/routesSmall.dat.txt");
+	Airports airports1(airports, routes);
+	for (int i = 0; i < airports1.airports.size(); i++){
+		airports1.airports[i].distance = i;
+		airports1.airports[i].heuristic = i;
+		airports1.airports[i].visited = 1;
+		airports1.airports[i].predecessorId = i;
+	}
+	airports1.reset();
+	for (int i = 0; i < airports1.airports.size(); i++){
+		if (airports1.airports[i].id != 0){
+			REQUIRE(airports1.airports[i].distance == 0);
+			REQUIRE(airports1.airports[i].heuristic == 0);
+			REQUIRE(airports1.airports[i].visited == 0);
+			REQUIRE(airports1.airports[i].predecessorId == 0);
+		}
+	}
+}
+
 // Helper function to test heapify_down
 void helpTestHeapifyDown(const std::vector<Airports::Airport> & airports){
 	Heap heap;

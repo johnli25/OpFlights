@@ -8,7 +8,8 @@ Dijkstra::Dijkstra(){
 Dijkstra::Dijkstra(Airports * airports, int sourceId){
   graph = airports;
   sourceAirportId = sourceId;
-  graph->airports[1].distance = -3;
+  // Resets the graph
+  graph->reset();
 }
 
 // work on this

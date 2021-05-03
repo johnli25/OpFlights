@@ -4,7 +4,7 @@
 #include <cmath>
 
 struct Airports{
-
+	// Edges in the graph
 	struct Route{
 		int sourceAirportId;
 	  int destinationAirportId;
@@ -14,7 +14,7 @@ struct Airports{
 		Route * prev;
 		Route * next;
 	};
-
+	// Vertices in the graph
 	struct Airport{
 		int id;
 		std::string name;
@@ -75,7 +75,7 @@ struct Airports{
 	// @return pointer to the airport if found; else NULL
 	Airport* findAirport(int id);
 
-	// Resets the distance, heuristic, visited, and
+	// Resets the distance, heuristic, visited, and predecessorId of every valid airport in the graph
 	void reset();
 /*
 	// Helper function that uses binary search to find the airport with id

@@ -45,6 +45,8 @@ AirportTraversal::Iterator::Iterator(Airports * ap, AirportTraversal * trav, Air
   traversal = trav;
   startingAirport = start;
   currentAirport = start;
+  // Reset the airports' values
+  airports->reset();
 }
 
 // Work on this
@@ -56,6 +58,7 @@ Airports::Airport * AirportTraversal::Iterator::operator*(){
   return currentAirport;
 }
 
+// WOrk on this
 bool AirportTraversal::Iterator::operator!=(const Iterator &other){
   return 0;
 }

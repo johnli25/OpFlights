@@ -163,3 +163,16 @@ void Airports::setRoutes(std::vector<Airports::Route> ro){
     destinationAirport->routes.push_back(allRoutes);
   }
 }
+
+void Airports::reset(){
+  for (unsigned i = 0; i < airports.size(); i++){
+    // If the airport is valid
+    if (airports[i].id != 0){
+      // Reset its variables
+      airports[i].distance = 0;
+      airports[i].heuristic = 0;
+      airports[i].visited = 0;
+      airports[i].predecessorId = 0;
+    }
+  }
+}
