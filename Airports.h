@@ -23,10 +23,13 @@ struct Airports{
 		double longitude;
 		// Vector of pointers to incident routes in the edge list; adjacency list
 		std::vector<Route*> routes;
+		// When setting to infinity, use DBL_MAX from #include <cfloat>
 		// Distance from starting airport (used for both algorithm)
 		double distance;
-		// Heuristic; distance from destination airport (used for A* search)
+		// Heuristic; distance from destination airport (set to 0 in Dijkstra)
 		double heuristic;
+		// 1 is already visited; 0 if not
+		bool visited;
 		// Default constructs an invalid airport
 		Airport();
 	};

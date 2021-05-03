@@ -15,6 +15,7 @@ Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Rout
     // Initialize the distance and heuristic to 0
     airports[ap[i].id].distance = 0;
     airports[ap[i].id].heuristic = 0;
+    airports[ap[i].id].visited = 0;
   }
   // Edge list currently empty
   allRoutes = NULL;
@@ -36,6 +37,7 @@ Airports::Airports(Airports const & other){
       // Copy the distance and heuristic
       airports[airport.id].distance = airport.distance;
       airports[airport.id].heuristic = airport.heuristic;
+      airports[airport.id].visited = airport.visited;
     }
   }
   // Clear the current edge list since it should be empty
@@ -48,7 +50,6 @@ Airports::Airports(Airports const & other){
     route.push_back(*ro);
     ro = ro->next;
   }
-  //std::reverse(route.begin(), route.end());
   setRoutes(route);
 }
 
@@ -75,6 +76,7 @@ Airports::Airport::Airport(){
   longitude = 0;
   distance = 0;
   heuristic = 0;
+  visited = 0;
 }
 
 Airports::Airport* Airports::findAirport(int id){

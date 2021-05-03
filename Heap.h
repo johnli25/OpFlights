@@ -29,14 +29,11 @@ class Heap
     // @param airport The airport to be inserted.
     void push(const Airports::Airport & airport);
 
-    // Updates the element at the provided index of the heap array.
+    // Updates the airport in the heap with the same id as the argument to the argument airport.
     // The update is done in such a way that the array will be
     // corrected, so it will remain as a valid heap.
-    // @param idx The index of the element to be updated
-    // (This is root()-indexed, so will work if
-    // using either zero or one-indexed heaps)
-    // @param airport The airport to be updated with.
-    void updateElem(const size_t & idx, const Airports::Airport & airport);
+    // @param airport The airport to be updated with
+    void updateElem(const Airports::Airport & airport);
 
     // Determines if the given heap is empty.
     // @return Whether or not there are airports in the heap.
@@ -57,9 +54,10 @@ class Heap
     std::vector<Airports::Airport> _elems;
 
     // Determines which airport has the least distance from starting airport
-    // In the case of ties, the first argument has the least distance
-    // Returns true if the first argument has less or equal distance than the second argument
-    // Returns false if the first argument has greater distance than the second argument
+    // In the case of ties, airport1 has the least distance
+    // Returns true if the airport1 has less or equal distance than the airport2
+    // Returns false if the airport1 has greater distance than the airport2
+    // This checks distance+heuristic so it works for both Dijkstra's (set heuristic to 0) and A* search
     // @param two airports that you want to compare
     // @return true if airport1 has higher priority than airport2
     bool higherPriority(const Airports::Airport & airport1, const Airports::Airport & airport2) const;

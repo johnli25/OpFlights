@@ -1,9 +1,24 @@
+#include <cfloat>
 #include "Heap.h"
 
 bool Heap::higherPriority(const Airports::Airport & airport1, const Airports::Airport & airport2) const{
-  if (airport1.distance <= airport2.distance){
-    return true;
+  double dist1 = airport1.distance + airport1.heuristic;
+  double dist2 = airport2.distance + airport2.heuristic;
+  // If both are at infinity (Adding any number to DBL_MAX = DBL_MAX)
+  if ((dist1 == DBL_MAX) && (dist2 == DBL_MAX)){
+    // Compare heuristic
+    if (airport1.heuristic <= airport2.heuristic){
+      // If airport1 is closer
+      return true;
+    }
+  }else{
+    // One or both of the distance is not at infinity so just compare distances
+    if (dist1 <= dist2){
+      // If airport1 is closer
+      return true;
+    }
   }
+  // Airport2 is closer
   return false;
 }
 
@@ -151,8 +166,15 @@ void Heap::push(const Airports::Airport & airport){
   heapifyUp(size_);
 }
 
-
-void Heap::updateElem(const size_t & idx, const Airports::Airport & airport){
+void Heap::updateElem(const Airports::Airport & airport){
+  // Find the index of the airport
+  size_t idx = 1;
+  for (size_t i = 1; i < size_; i++){
+    if (_elems[i].id == airport.id){
+      idx = i;
+      break;
+    }
+  }
   // Corrects the heap to remain as a valid heap even after update
   size_t currentIdx = idx;
   // Make a copy of the previous element
@@ -160,9 +182,9 @@ void Heap::updateElem(const size_t & idx, const Airports::Airport & airport){
   // Insert the element into the idx+1 slot of the vector
   _elems[currentIdx] = airport;
   // If the new element is larger than the previous one, need to heapify down
-  if (airport.distance > tmp.distance){
+  if (higherPriority(tmp, airport)){
     heapifyDown(currentIdx);
-  }else if (airport.distance < tmp.distance){
+  }else if (higherPriority(airport, tmp)){
     // If it is smaller than the previous one, need to heapify up
     heapifyUp(currentIdx);
   }

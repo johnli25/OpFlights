@@ -6,7 +6,13 @@
 #include <sstream>
 #include "Airports.h"
 #include "Heap.h"
+#include <cfloat>
+
 int main() {
+	std::vector<Airports::Airport> airports;
+	airports = file_to_Airport("tests/airportsALL.dat.txt");
+	std::vector<Airports::Route> routes;
+	routes = file_to_Route("tests/routesALL.dat.txt");
 	/*
 	std::vector<Airports::Airport> airports;
 	airports = file_to_Airport("tests/airportsMain.dat.txt");
@@ -53,24 +59,33 @@ int main() {
 	air = airportss2.findAirport(2);
 	std::cout<<air->id<<std::endl;
 	*/
+	/*
 	std::vector<Airports::Airport> airports;
 	airports = file_to_Airport("tests/airportsMain2.dat.txt");
 	std::vector<Airports::Route> routes;
 	routes = file_to_Route("tests/routes.dat.txt");
 	Airports ap(airports, routes);
-	for (unsigned i = 0; i < ap.airports.size(); i++){
+	for (int i = 0; i < ap.airports.size(); i++){
 		if (ap.airports[i].id != 0){
-			ap.airports[i].distance = 10-i;
+			ap.airports[i].distance = DBL_MAX;
+			ap.airports[i].heuristic = i-2;
 		}
 	}
 	Heap heap(ap.airports);
 	Airports::Airport a1;
 	a1.id = 5;
 	a1.distance = 7;
+	a1.heuristic = 3;
 	heap.push(a1);
-	/*
+	Airports::Airport a2;
+	a2.id = 6;
+	a2.distance = 5;
+	a2.heuristic = 4;
+	heap.push(a2);
 	Airports::Airport air = heap.pop();
-	air = heap.peek();
+	air = heap.pop();
+	air = heap.pop();
+	air = heap.pop();
 	air = heap.pop();
 	air = heap.pop();
 	air = heap.pop();
