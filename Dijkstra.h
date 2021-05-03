@@ -30,7 +30,7 @@ class Dijkstra{
     // @param id of starting airport
     void setStart(int sourceId);
 
-  private;
+  private:
     // Pointer to airports graph
     Airports * graph;
     // Starting airportID

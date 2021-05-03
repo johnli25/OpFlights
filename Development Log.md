@@ -10,3 +10,6 @@
 1) Finalized the structure for the edge list, adjacency list, and vector table.
 2) Created priority queue class and created tests
 3) Created foundation for A* search
+
+**Week of 5/2**
+1) Foundations for Dijkstra

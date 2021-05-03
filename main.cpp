@@ -1,18 +1,21 @@
 #include <iostream>
 #include <vector>
-#include "readFromFile.hpp"
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <cfloat>
 #include "Airports.h"
 #include "Heap.h"
-#include <cfloat>
+#include "readFromFile.hpp"
+#include "Dijkstra.h"
 
 int main() {
 	std::vector<Airports::Airport> airports;
-	airports = file_to_Airport("tests/airportsALL.dat.txt");
+	airports = file_to_Airport("tests/airportsMain.dat.txt");
 	std::vector<Airports::Route> routes;
-	routes = file_to_Route("tests/routesALL.dat.txt");
+	routes = file_to_Route("tests/routes.dat.txt");
+	Airports airportss(airports, routes);
+	Dijkstra(&airportss, 1);
 	/*
 	std::vector<Airports::Airport> airports;
 	airports = file_to_Airport("tests/airportsMain.dat.txt");

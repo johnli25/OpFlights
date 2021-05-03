@@ -8,6 +8,7 @@ Dijkstra::Dijkstra(){
 Dijkstra::Dijkstra(Airports * airports, int sourceId){
   graph = airports;
   sourceAirportId = sourceId;
+  graph->airports[1].distance = -3;
 }
 
 void Dijkstra::runDijkstra(){
@@ -19,7 +20,7 @@ std::vector<int> findShortestPath(int destinationAirportId){
   return path;
 }
 
-void Dijkstra::setGraph(Airports * airports){
+void Dijkstra::setGraph(Airports *airports){
   graph = airports;
 }
 
