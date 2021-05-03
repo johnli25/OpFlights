@@ -1,3 +1,4 @@
+#pragma once 
 #include <vector>
 #include "Airports.h"
 #include "Heap.h"

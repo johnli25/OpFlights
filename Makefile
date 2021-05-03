@@ -2,7 +2,7 @@
 EXENAME = finalproj
 
 # Object Types
-OBJS = readFromFile.o main.o Airports.o Heap.o Dijkstra.o
+OBJS = readFromFile.o main.o Airports.o Heap.o Dijkstra.o AirportTraversal.o
 
 # Compilation Flags
 CXX = clang++
@@ -23,11 +23,11 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME): output_msg $(OBJS)
 	$(LD) $(OBJS) -g $(LDFLAGS) -o $(EXENAME)
 
-readFromFile.o: main.cpp readFromFile.cpp Airports.cpp Heap.cpp Dijkstra.cpp
-	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Airports.cpp Heap.cpp Dijkstra.cpp
+readFromFile.o: main.cpp readFromFile.cpp Airports.cpp Heap.cpp Dijkstra.cpp AirportTraversal.cpp
+	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Airports.cpp Heap.cpp Dijkstra.cpp AirportTraversal.cpp
 
-test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp Heap.cpp Dijkstra.cpp
-	$(LD) -g catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp Heap.cpp  Dijkstra.cpp $(LDFLAGS) -o test
+test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp Heap.cpp Dijkstra.cpp AirportTraversal.cpp
+	$(LD) -g catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Airports.cpp Heap.cpp  Dijkstra.cpp AirportTraversal.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test

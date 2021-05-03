@@ -167,7 +167,7 @@ void Heap::push(const Airports::Airport & airport){
 
 void Heap::updateElem(const Airports::Airport & airport){
   // Find the index of the airport
-  size_t idx = -1;
+  int idx = -1;
   for (size_t i = 1; i < size_; i++){
     if (_elems[i].id == airport.id){
       idx = i;

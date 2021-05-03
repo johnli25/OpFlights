@@ -13,3 +13,4 @@
 
 **Week of 5/2**
 1) Foundations for Dijkstra
+2) Foundations for BFS iterator
