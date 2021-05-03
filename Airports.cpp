@@ -1,7 +1,8 @@
 #include "Airports.h"
 
 Airports::Airports(){
-  // Nothing
+  allRoutes = NULL;
+  airports.clear();
 }
 
 Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Route> ro){
@@ -11,6 +12,9 @@ Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Rout
   // Puts each airport in the vertex table, with the index corresponding to its id
   for (unsigned i = 0; i < ap.size(); i++){
     airports[ap[i].id] = ap[i];
+    // Initialize the distance and heuristic to 0
+    airports[ap[i].id].distance = 0;
+    airports[ap[i].id].heuristic = 0;
   }
   // Edge list currently empty
   allRoutes = NULL;
@@ -29,6 +33,9 @@ Airports::Airports(Airports const & other){
       airports[airport.id] = airport;
       // Need to clear the adjacency list
       airports[airport.id].routes.clear();
+      // Copy the distance and heuristic
+      airports[airport.id].distance = airport.distance;
+      airports[airport.id].heuristic = airport.heuristic;
     }
   }
   // Clear the current edge list since it should be empty
@@ -60,6 +67,14 @@ Airports::~Airports(){
       cur = next;
     }
   }
+}
+
+Airports::Airport::Airport(){
+  id = 0;
+  latitude = 0;
+  longitude = 0;
+  distance = 0;
+  heuristic = 0;
 }
 
 Airports::Airport* Airports::findAirport(int id){

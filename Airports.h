@@ -19,10 +19,16 @@ struct Airports{
 		int id;
 		std::string name;
 		std::string city;
-		float latitude;
-		float longitude;
+		double latitude;
+		double longitude;
 		// Vector of pointers to incident routes in the edge list; adjacency list
 		std::vector<Route*> routes;
+		// Distance from starting airport (used for both algorithm)
+		double distance;
+		// Heuristic; distance from destination airport (used for A* search)
+		double heuristic;
+		// Default constructs an invalid airport
+		Airport();
 	};
 
 	// Vector of airports; Vertex table
@@ -50,7 +56,7 @@ struct Airports{
 
 	// Destructor; deletes the edge list
 	~Airports();
-	
+
 	// Sets up the edge list and adjacency list
 	// @param Vector of routes
 	// @return nothing

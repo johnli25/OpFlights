@@ -5,3 +5,8 @@
 2) Finished function to weight of edges.
 3) Finished other misc functions (find airport given ID, etc.)
 4) Finished filling in the airports' routes vector (with the source and destination Airport)
+
+**Week of 4/25**
+1) Finalized the structure for the edge list, adjacency list, and vector table.
+2) Created priority queue class and created tests
+3) Created foundation for A* search

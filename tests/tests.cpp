@@ -3,6 +3,7 @@
 
 #include "../catch/catch.hpp"
 #include "../readFromFile.hpp"
+#include "../Heap.h"
 
 // Helper function to test if two vectors of airports are the same
 bool compareAirports(std::vector<Airports::Airport> airport1, std::vector<Airports::Airport> airport2){
@@ -128,5 +129,38 @@ TEST_CASE("Verify that copy constructor work"){
 		REQUIRE(cur1->distance == cur2->distance);
 		cur1 = cur1->next;
 		cur2 = cur2->next;
+	}
+}
+
+TEST_CASE("Verify that heapify_down works"){
+	Heap heap;
+	int id = 1;
+	std::vector<int> sorted;
+	for (int i = 10; i > -10; i = i-2){
+		Airports::Airport ap;
+		ap.id = id;
+		ap.distance = i;
+		id++;
+		heap.push(ap);
+		sorted.push_back(i);
+	}
+	std::sort(sorted.begin(), sorted.end());
+	for (size_t in = 0; in < sorted.size(); in++){
+		REQUIRE(sorted[in] == heap.pop().distance);
+	}
+}
+
+TEST_CASE("Verify that heapify_down works 2"){
+	Heap heap;
+	std::vector<int> sorted = {47, 35, -20, 40, -10, 48, 89, 90, 109, 20, -31, -20, -20, 35, 30};
+	for (int i = 0; i < sorted.size(); i++){
+		Airports::Airport ap;
+		ap.id = i+1;
+		ap.distance = sorted[i];
+		heap.push(ap);
+	}
+	std::sort(sorted.begin(), sorted.end());
+	for (size_t in = 0; in < sorted.size(); in++){
+		REQUIRE(sorted[in] == heap.pop().distance);
 	}
 }
