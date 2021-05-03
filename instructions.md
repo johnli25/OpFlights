@@ -31,7 +31,7 @@ for example, 1, 2, 4, 5 in the data field would give 0,1,2,0,4,5 in the vertex t
 1. Use `Airports::Route * ROUTE = Airports.allRoutes` to get the head pointer to the edge linked list
 2. Use ROUTE->next to get next in list
 
-## Before using any algorithms or BFS, need to reset distance, heuristic, and visited for each airport in the graph
+## Before using any algorithms or BFS, need to reset distance to 0, heuristic to 0, and visited to 0 for each airport in the graph
 1. Should have a pointer to the Graph object as a member variable in each of the algorithm so for the constructor, pass in the Graph as a reference or pointer
 2. For example, constructor for Djkstra: `Djkstra(Airports * GRAPH) { Airports * graph = GRAPH; }`
 

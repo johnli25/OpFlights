@@ -121,8 +121,7 @@ Heap::Heap(const std::vector<Airports::Airport>& airports){
       size_++;
     }
   }
-  // Change i = size_ to i = parent(size_) for optimization
-  for (unsigned i = size_; i > 0; i--){
+  for (unsigned i = parent(size_); i > 0; i--){
     heapifyDown(i);
   }
 }
@@ -168,19 +167,24 @@ void Heap::push(const Airports::Airport & airport){
 
 void Heap::updateElem(const Airports::Airport & airport){
   // Find the index of the airport
-  size_t idx = 1;
+  size_t idx = -1;
   for (size_t i = 1; i < size_; i++){
     if (_elems[i].id == airport.id){
       idx = i;
       break;
     }
   }
+  // If can't find it, done
+  if (idx == -1){
+    return;
+  }
   // Corrects the heap to remain as a valid heap even after update
   size_t currentIdx = idx;
   // Make a copy of the previous element
   Airports::Airport tmp = _elems[currentIdx];
-  // Insert the element into the idx+1 slot of the vector
-  _elems[currentIdx] = airport;
+  // Update the distance and heuristic to the new one
+  _elems[currentIdx].distance = airport.distance;
+  _elems[currentIdx].heuristic = airport.heuristic;
   // If the new element is larger than the previous one, need to heapify down
   if (higherPriority(tmp, airport)){
     heapifyDown(currentIdx);
