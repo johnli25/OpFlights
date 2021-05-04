@@ -33,6 +33,7 @@ for example, 1, 2, 4, 5 in the data field would give 0,1,2,0,4,5 in the vertex t
 
 ## Before using any algorithms or BFS, need to reset distance to 0, heuristic to 0, and visited to 0 for each airport in the graph
 1. Use `Airports.reset();`
+2. When setting the distance to infinity, use `DBL_MAX` from `#include <cfloat>`
 
 ## Constructing the priorty queue
 1. vector of airports should be from the vertex table of the graph
