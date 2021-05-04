@@ -1,6 +1,6 @@
-#pragma once 
+#pragma once
 #include <vector>
-#include "Airports.h"
+#include "Graph.h"
 #include "Heap.h"
 
 class Dijkstra{
@@ -10,7 +10,7 @@ class Dijkstra{
 
     // Custom constructor
     // @param pointer to airports data graph, id of airport where you start the search from
-    Dijkstra(Airports * airports, int sourceId);
+    Dijkstra(Graph * airports, int sourceId);
 
     // Runs Dijkstra's algorithm that modifies the graph to produce a shortest path tree from the starting airport
     void runDijkstra();
@@ -25,7 +25,7 @@ class Dijkstra{
 
     // Sets the graph that Dijkstra is run on
     // @param graph of airports
-    void setGraph(Airports * airports);
+    void setGraph(Graph * airports);
 
     // Sets the starting airport
     // @param id of starting airport
@@ -33,7 +33,7 @@ class Dijkstra{
 
   private:
     // Pointer to airports graph
-    Airports * graph;
+    Graph * graph;
     // Starting airportID
     int sourceAirportId;
 };

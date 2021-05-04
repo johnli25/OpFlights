@@ -1,7 +1,7 @@
 #include <iterator>
 #include "AirportTraversal.h"
 
-AirportTraversal::AirportTraversal(Airports * ap, Airports::Airport * start){
+AirportTraversal::AirportTraversal(Graph * ap, Graph::Airport * start){
   airports = ap;
   startingAirport = start;
   add(startingAirport);
@@ -15,17 +15,17 @@ AirportTraversal::Iterator AirportTraversal::end(){
   return AirportTraversal::Iterator();
 }
 
-void AirportTraversal::add(Airports::Airport * ap){
+void AirportTraversal::add(Graph::Airport * ap){
   queue.push(ap);
 }
 
-Airports::Airport * AirportTraversal::pop(){
-  Airports::Airport * current = queue.front();
+Graph::Airport * AirportTraversal::pop(){
+  Graph::Airport * current = queue.front();
   queue.pop();
   return current;
 }
 
-Airports::Airport * AirportTraversal::peek(){
+Graph::Airport * AirportTraversal::peek(){
   return queue.front();
 }
 
@@ -40,7 +40,7 @@ AirportTraversal::Iterator::Iterator(){
   currentAirport = NULL;
 }
 
-AirportTraversal::Iterator::Iterator(Airports * ap, AirportTraversal * trav, Airports::Airport* start){
+AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph::Airport* start){
   airports = ap;
   traversal = trav;
   startingAirport = start;
@@ -54,7 +54,7 @@ AirportTraversal::Iterator AirportTraversal::Iterator::operator++(){
   return AirportTraversal::Iterator();
 }
 
-Airports::Airport * AirportTraversal::Iterator::operator*(){
+Graph::Airport * AirportTraversal::Iterator::operator*(){
   return currentAirport;
 }
 

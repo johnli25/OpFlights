@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
-#include "Airports.h"
+#include "Graph.h"
 
 bool isValidAirport(const std::string str){
 	// Holds the number of commas in the string
@@ -22,7 +22,7 @@ bool isValidAirport(const std::string str){
 	return false;
 }
 
-Airports::Airport processAirport(const std::string str){
+Graph::Airport processAirport(const std::string str){
 	// Creates the stringstream of the string
 	std::stringstream ss(str);
 	// Vector containing each entry in the string
@@ -34,7 +34,7 @@ Airports::Airport processAirport(const std::string str){
 		getline(ss, substring, ',');
 		v.push_back(substring);
 	}
-	Airports::Airport airport;
+	Graph::Airport airport;
 	// Convert the 0-th index substring, which is the id of the airport to stringstream
 	// in order to convert to an int
 	std::stringstream temp(v[0]);
@@ -74,7 +74,7 @@ bool isValidRoute(const std::string str){
 	return false;
 }
 
-Airports::Route processRoute(const std::string str){
+Graph::Route processRoute(const std::string str){
 	// Creates the stringstream of the string
 	std::stringstream ss(str);
 	// Vector containing each entry in the string
@@ -86,7 +86,7 @@ Airports::Route processRoute(const std::string str){
 		getline(ss, substring, ',');
 		v.push_back(substring);
 	}
-	Airports::Route route;
+	Graph::Route route;
 	// Convert the 3rd index substring, which is the id of the source airport to stringstream
 	// in order to convert to an int
 	std::stringstream temp(v[3]);
@@ -97,8 +97,8 @@ Airports::Route processRoute(const std::string str){
 	return route;
 }
 
-std::vector<Airports::Airport> file_to_Airport(const std::string & filename) {
-	std::vector<Airports::Airport> airports;
+std::vector<Graph::Airport> file_to_Airport(const std::string & filename) {
+	std::vector<Graph::Airport> airports;
 	// Create an input stream
 	std::ifstream inFile;
 	// Open the data file
@@ -121,8 +121,8 @@ std::vector<Airports::Airport> file_to_Airport(const std::string & filename) {
 	return airports;
 }
 
-std::vector<Airports::Route> file_to_Route(const std::string & filename){
-	std::vector<Airports::Route> routes;
+std::vector<Graph::Route> file_to_Route(const std::string & filename){
+	std::vector<Graph::Route> routes;
 	// Create an input stream
 	std::ifstream inFile;
 	// Open the data file

@@ -1,7 +1,7 @@
 #include <cfloat>
 #include "Heap.h"
 
-bool Heap::higherPriority(const Airports::Airport & airport1, const Airports::Airport & airport2) const{
+bool Heap::higherPriority(const Graph::Airport & airport1, const Graph::Airport & airport2) const{
   double dist1 = airport1.distance + airport1.heuristic;
   double dist2 = airport2.distance + airport2.heuristic;
   // If both are at infinity (Adding any number to DBL_MAX = DBL_MAX)
@@ -102,13 +102,13 @@ void Heap::heapifyUp(size_t currentIdx){
 Heap::Heap(){
   // Sets the number of elements to 0 since empty
   size_ = 0;
-  Airports::Airport filler;
+  Graph::Airport filler;
   // Fill 0-th index with an invalid airport
   _elems.push_back(filler);
 }
 
-Heap::Heap(const std::vector<Airports::Airport>& airports){
-  Airports::Airport filler;
+Heap::Heap(const std::vector<Graph::Airport>& airports){
+  Graph::Airport filler;
   // Fill 0-th index with an invalid airport
   _elems.push_back(filler);
   size_ = 0;
@@ -126,14 +126,14 @@ Heap::Heap(const std::vector<Airports::Airport>& airports){
   }
 }
 
-Airports::Airport Heap::pop(){
+Graph::Airport Heap::pop(){
   // If the heap is empty, return invalid airport
   if (empty()){
-    Airports::Airport filler;
+    Graph::Airport filler;
     return filler;
   }
   // Get the smallest value, which is at the 1st index
-  Airports::Airport minValue = _elems[1];
+  Graph::Airport minValue = _elems[1];
   // Swap with the last unremoved element
   _elems[1] = _elems[size_];
   // Remove it by reducing the number of unremoved elements
@@ -145,18 +145,18 @@ Airports::Airport Heap::pop(){
 }
 
 
-Airports::Airport Heap::peek() const{
+Graph::Airport Heap::peek() const{
   // If the heap is not empty, return the 1st element
   if (!empty()){
     return _elems[1];
   }
   // Else return invalid airport
-  Airports::Airport filler;
+  Graph::Airport filler;
   return filler;
 }
 
 
-void Heap::push(const Airports::Airport & airport){
+void Heap::push(const Graph::Airport & airport){
   // Add it to the end of the heap
   _elems.push_back(airport);
   // Increase the number of unremoved elements
@@ -165,7 +165,7 @@ void Heap::push(const Airports::Airport & airport){
   heapifyUp(size_);
 }
 
-void Heap::updateElem(const Airports::Airport & airport){
+void Heap::updateElem(const Graph::Airport & airport){
   // Find the index of the airport
   int idx = -1;
   for (size_t i = 1; i < size_; i++){
@@ -181,7 +181,7 @@ void Heap::updateElem(const Airports::Airport & airport){
   // Corrects the heap to remain as a valid heap even after update
   size_t currentIdx = idx;
   // Make a copy of the previous element
-  Airports::Airport tmp = _elems[currentIdx];
+  Graph::Airport tmp = _elems[currentIdx];
   // Update the distance and heuristic to the new one
   _elems[currentIdx].distance = airport.distance;
   _elems[currentIdx].heuristic = airport.heuristic;
@@ -202,7 +202,7 @@ bool Heap::empty() const{
   return false;
 }
 
-void Heap::getElems(std::vector<Airports::Airport> & heaped) const{
+void Heap::getElems(std::vector<Graph::Airport> & heaped) const{
   for (size_t i = root(); i < _elems.size(); i++) {
       heaped.push_back(_elems[i]);
   }

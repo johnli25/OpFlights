@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Airports.h"
+#include "Graph.h"
 
 class Heap
 {
@@ -13,34 +13,34 @@ class Heap
     // algorithm.
     // Note, it will ignore any empty slots in the vector table (any airports with id 0)
     // @param airports The airports that should be placed in the heap.
-    Heap(const std::vector<Airports::Airport>& airports);
+    Heap(const std::vector<Graph::Airport>& airports);
 
     // Removes the airport with highest priority
     // @return The airport with highest priority (lowest distance from starting airport) in the heap.
-    Airports::Airport pop();
+    Graph::Airport pop();
 
     // Returns, but does not remove, the airport with highest priority.
     // @return The highest priority airport in the entire heap.
-    Airports::Airport peek() const;
+    Graph::Airport peek() const;
 
     // Inserts the given airport into the heap, restoring the heap
     // property after the insert as appropriate.
     // It will ignore any invalid airports (any airports with id 0)
     // @param airport The airport to be inserted.
-    void push(const Airports::Airport & airport);
+    void push(const Graph::Airport & airport);
 
     // Updates the airport in the heap with the same id as the argument to the argument airport.
     // The update is done in such a way that the array will be
     // corrected, so it will remain as a valid heap.
     // @param airport The airport to be updated with
-    void updateElem(const Airports::Airport & airport);
+    void updateElem(const Graph::Airport & airport);
 
     // Determines if the given heap is empty.
     // @return Whether or not there are airports in the heap.
     bool empty() const;
 
     // Gets the vector of airports
-    void getElems(std::vector<Airports::Airport> & heaped) const;
+    void getElems(std::vector<Graph::Airport> & heaped) const;
 
     // Helper function that returns the root index of this heap.
     // @return The index of the root node of the heap.
@@ -51,7 +51,7 @@ class Heap
     size_t size_;
 
     // The internal storage for this heap
-    std::vector<Airports::Airport> _elems;
+    std::vector<Graph::Airport> _elems;
 
     // Determines which airport has the least distance from starting airport
     // In the case of ties, airport1 has the least distance
@@ -60,7 +60,7 @@ class Heap
     // This checks distance+heuristic so it works for both Dijkstra's (set heuristic to 0) and A* search
     // @param two airports that you want to compare
     // @return true if airport1 has higher priority than airport2
-    bool higherPriority(const Airports::Airport & airport1, const Airports::Airport & airport2) const;
+    bool higherPriority(const Graph::Airport & airport1, const Graph::Airport & airport2) const;
 
     // Helper function that returns the index of the left child of a
     // node in the heap.

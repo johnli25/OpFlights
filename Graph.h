@@ -3,7 +3,7 @@
 #include <string>
 #include <cmath>
 // The graph data structure containing all the airports and routes in the data file
-struct Airports{
+struct Graph{
 	// Edges in the graph
 	struct Route{
 		// id of the airport that the route starts at
@@ -51,18 +51,18 @@ struct Airports{
 	int numAirports;
 
 	// Default constructor; does nothing
-	Airports();
+	Graph();
 
 	// Custom constructor; intializes the edge list, vertex table, and adjacency list
 	// @param vector of airports, vector of routes
-	Airports(std::vector<Airport> ap, std::vector<Route> ro);
+	Graph(std::vector<Airport> ap, std::vector<Route> ro);
 
 	// Copy constructor
 	// @param other airports that you want to copy
-	Airports(Airports const & other);
+	Graph(Graph const & other);
 
 	// Destructor; deletes the edge list
-	~Airports();
+	~Graph();
 
 	// Creates a new pointer to a route and inserts it to the front of the linked edge list
 	// @param route that is to be inserted (it must have all its variables set beside the pointers)
@@ -71,7 +71,7 @@ struct Airports{
 	// Sets up the edge list and adjacency list
 	// @param Vector of routes
 	// @return nothing
-	void setRoutes(std::vector<Airports::Route> ro);
+	void setRoutes(std::vector<Graph::Route> ro);
 
 	// Returns a pointer to the airport with the id in the vertex table
 	// @param id of the airport

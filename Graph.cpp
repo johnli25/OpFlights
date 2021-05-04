@@ -1,12 +1,12 @@
-#include "Airports.h"
+#include "Graph.h"
 
-Airports::Airports(){
+Graph::Graph(){
   allRoutes = NULL;
   airports.clear();
   numAirports = 0;
 }
 
-Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Route> ro){
+Graph::Graph(std::vector<Graph::Airport> ap, std::vector<Graph::Route> ro){
   // Resize the vertex table to the id of the last airport (since the data is in sorted order)
   airports.resize(ap.back().id+1);
   numAirports = 0;
@@ -25,7 +25,7 @@ Airports::Airports(std::vector<Airports::Airport> ap, std::vector<Airports::Rout
   setRoutes(ro);
 }
 
-Airports::Airports(Airports const & other){
+Graph::Graph(Graph const & other){
   // Get other's airport
   std::vector<Airport> ap = other.airports;
   // Resize the airport vector
@@ -50,7 +50,7 @@ Airports::Airports(Airports const & other){
   // Get other's edge list
   Route * ro = other.allRoutes;
   // Convert the edge list to a vector
-  std::vector<Airports::Route> route;
+  std::vector<Graph::Route> route;
   while (ro != NULL){
     route.push_back(*ro);
     ro = ro->next;
@@ -58,15 +58,15 @@ Airports::Airports(Airports const & other){
   setRoutes(route);
 }
 
-Airports::~Airports(){
+Graph::~Graph(){
   // If there are edges in the edge list
   if (allRoutes != NULL){
     // Get the head pointer to the edge list
-    Airports::Route * cur = allRoutes;
+    Graph::Route * cur = allRoutes;
     // While not at the end of the list
     while (cur != NULL){
       // Get the next node in the list
-      Airports::Route * next = cur->next;
+      Graph::Route * next = cur->next;
       // Delete the current node
       delete cur;
       // Move to the next node
@@ -75,7 +75,7 @@ Airports::~Airports(){
   }
 }
 
-Airports::Airport::Airport(){
+Graph::Airport::Airport(){
   id = 0;
   latitude = 0;
   longitude = 0;
@@ -85,36 +85,14 @@ Airports::Airport::Airport(){
   predecessorId = 0;
 }
 
-Airports::Airport* Airports::findAirport(int id){
+Graph::Airport* Graph::findAirport(int id){
   // Returns a pointer to the airport at the index of the id
   return &airports[id];
-  // Calls recursive function
-  //return _findAirport(0, airports.size()-1, id);
 }
 
-/*
-Airports::Airport* Airports::_findAirport(int l, int r, int id){
-  if (r >= 0){
-    int mid = (l + r)/2;
-    // If the airport is at the middle, return pointer to the airport
-    if (airports[mid]->id == id){
-      return airports[mid];
-    }
-    // If the id of the middle airport is larger, search left subarray
-    if (airports[mid]->id > id){
-      return _findAirport(l, mid-1, id);
-    }
-    // Else the id of the middle airport is smaller, search right subarray
-    return _findAirport(mid+1, r, id);
-  }
-  // The airport is not present
-  return NULL;
-}
-*/
-
-void Airports::insertFront(Route ro){
+void Graph::insertFront(Route ro){
   // Make a new linked list node corresponding to the route
-  Airports::Route * route = new Airports::Route;
+  Graph::Route * route = new Graph::Route;
   // Initialize its values
   route->sourceAirportId = ro.sourceAirportId;
   route->destinationAirportId = ro.destinationAirportId;
@@ -123,7 +101,7 @@ void Airports::insertFront(Route ro){
   // If there is a node already
   if (allRoutes != NULL){
     // Get the current head pointer to the edge list
-    Airports::Route * temp = allRoutes;
+    Graph::Route * temp = allRoutes;
     // Make the current route the new head
     allRoutes = route;
     // Make the new head point to the previous head
@@ -139,16 +117,16 @@ void Airports::insertFront(Route ro){
   }
 }
 
-void Airports::setRoutes(std::vector<Airports::Route> ro){
+void Graph::setRoutes(std::vector<Graph::Route> ro){
   // Reverse the order of the routes since it inserts at the front of the edge list
   // Want the edge list to be in the same order as the route data
   std::reverse(ro.begin(), ro.end());
   for (unsigned i = 0; i < ro.size(); i++){
     // Get the current route
-    Airports::Route cur = ro[i];
+    Graph::Route cur = ro[i];
     // Find the source and destination airports
-    Airports::Airport * sourceAirport = findAirport(cur.sourceAirportId);
-    Airports::Airport * destinationAirport = findAirport(cur.destinationAirportId);
+    Graph::Airport * sourceAirport = findAirport(cur.sourceAirportId);
+    Graph::Airport * destinationAirport = findAirport(cur.destinationAirportId);
     // Get their coordinates
     double sourceLat = sourceAirport->latitude;
     double sourceLong = sourceAirport->longitude;
@@ -164,7 +142,7 @@ void Airports::setRoutes(std::vector<Airports::Route> ro){
   }
 }
 
-void Airports::reset(){
+void Graph::reset(){
   for (unsigned i = 0; i < airports.size(); i++){
     // If the airport is valid
     if (airports[i].id != 0){
