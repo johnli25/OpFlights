@@ -23,7 +23,7 @@ class AirportTraversal{
         bool operator != (const Iterator &other);
       private:
         // Pointer to the graph data structure
-        Graph * airports;
+        Graph * graph;
         // Pointer to the type of traversal; use traversal->pop() to use the functions outside
         AirportTraversal * traversal;
         // Airport to start the traversal at
@@ -48,7 +48,7 @@ class AirportTraversal{
     // Queue of pointer to airports in the original graph
     std::queue<Graph::Airport*> queue;
     // Pointer to the graph data structure
-    Graph * airports;
+    Graph * graph;
     // Airport to start the traversal at
     Graph::Airport * startingAirport;
 };

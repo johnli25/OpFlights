@@ -2,13 +2,13 @@
 #include "AirportTraversal.h"
 
 AirportTraversal::AirportTraversal(Graph * ap, Graph::Airport * start){
-  airports = ap;
+  graph = ap;
   startingAirport = start;
   add(startingAirport);
 }
 
 AirportTraversal::Iterator AirportTraversal::begin(){
-  return AirportTraversal::Iterator(airports, this, startingAirport);
+  return AirportTraversal::Iterator(graph, this, startingAirport);
 }
 
 AirportTraversal::Iterator AirportTraversal::end(){
@@ -34,19 +34,19 @@ bool AirportTraversal::empty() const{
 }
 
 AirportTraversal::Iterator::Iterator(){
-  airports = NULL;
+  graph = NULL;
   traversal = NULL;
   startingAirport = NULL;
   currentAirport = NULL;
 }
 
 AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph::Airport* start){
-  airports = ap;
+  graph = ap;
   traversal = trav;
   startingAirport = start;
   currentAirport = start;
   // Reset the airports' values
-  airports->reset();
+  graph->reset();
 }
 
 // Work on this

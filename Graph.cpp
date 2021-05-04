@@ -79,6 +79,7 @@ Graph::Airport::Airport(){
   id = 0;
   latitude = 0;
   longitude = 0;
+  routes.clear();
   distance = 0;
   heuristic = 0;
   visited = 0;
