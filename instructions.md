@@ -1,7 +1,7 @@
 ## Reading airports data to vector
 1. The data must be in the format: `ID,"NAME","CITY",_,_,_,LATITUDE,LONGITUDE,_,_,_,_,_,_`
 2. The _ fields may be left blank, but there must be the commas
-3. The ID of each airport must be unique, non-zero positive integer
+3. The ID of each airport must be unique, non-zero positive integer; they must be in increasing order starting from 1
 4. Invalid airports have an ID of 0
 5. You may skip ID; however, in the vertex table, note empty fields with ID 0
 for example, 1, 2, 4, 5 in the data field would give 0,1,2,0,4,5 in the vertex table
