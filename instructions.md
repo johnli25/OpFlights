@@ -7,32 +7,32 @@
 for example, 1, 2, 4, 5 in the data field would give 0,1,2,0,4,5 in the vertex table
 6. The ID of the airport corresponds to the index in the vertex table
 7. Use `file_to_Airport("FILENAME.txt")`
-8. Returns a vector of Airports: std::vector<Airports::Airport>
+8. Returns a vector of Airports: `std::vector<Graph::Airport>`
 
 ## Reading routes data to vector
 1. The data must be in the format: `_,_,_,SOURCE-AIRPORT-ID,_,DESTINATION-AIRPORT-ID,_,_,_`
 2. Use `file_to_Route("FILENAME.txt")`
-3. Returns a vector of Routes: std::vector<Airports::Route>
+3. Returns a vector of Routes: `std::vector<Graph::Route>`
 
 ## Constructing the graph
 1. Use custom constructor `Airports NAME(vector of airports, vector of routes)`
 
 ## Finding an airport with a given id
-1. Use `Airports.findAirport(ID)`
+1. Use `Graph.findAirport(ID)`
 2. Returns a pointer to the airport in the vertex table: Airports::Airport *
 
 ## Accessing the vertex table
-1. Use `Airports.airports[ID]` or findAirport(ID) above
+1. Use `Graph.airports[ID]` or findAirport(ID) above
 
 ## Accessing the adjacency list for a given airport
-1. Use `Airports.airports[ID].routes[INDEX]` or `findAirport(ID).routes[INDEX]`
+1. Use `Graph.airports[ID].routes[INDEX]` or `findAirport(ID).routes[INDEX]`
 
 ## Accessing the edge list
-1. Use `Airports::Route * ROUTE = Airports.allRoutes` to get the head pointer to the edge linked list
+1. Use `Graph::Route * ROUTE = Graph.allRoutes` to get the head pointer to the edge linked list
 2. Use ROUTE->next to get next in list
 
 ## Before using any algorithms or BFS, need to reset distance to 0, heuristic to 0, and visited to 0 for each airport in the graph
-1. Use `Airports.reset();`
+1. Use `Graph.reset();`
 2. When setting the distance to infinity, use `DBL_MAX` from `#include <cfloat>`
 
 ## Constructing the priorty queue
