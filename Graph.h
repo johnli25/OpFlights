@@ -80,11 +80,4 @@ struct Graph{
 
 	// Resets the distance, heuristic, visited, and predecessorId of every valid airport in the graph
 	void reset();
-/*
-	// Helper function that uses binary search to find the airport with id
-	// Can use binary search since the airport data is sorted by increasing id
-	// @param left edge of subarray, right edge of subarray, id of airport
-	// @return pointer to airport if found; else NULL
-	Airport* _findAirport(int l, int r, int id);
-*/
 };
