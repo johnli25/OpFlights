@@ -2,12 +2,14 @@
 #include <vector>
 #include <string>
 #include <cmath>
-
+// The graph data structure containing all the airports and routes in the data file
 struct Airports{
 	// Edges in the graph
 	struct Route{
+		// id of the airport that the route starts at
 		int sourceAirportId;
-	  int destinationAirportId;
+		// id of the airport that the route ends at
+	  	int destinationAirportId;
 		// Euclidean distance between source and destination airports
 	 	double distance;
 		// Pointers to the next and previous route in the egde list
@@ -21,9 +23,10 @@ struct Airports{
 		std::string city;
 		double latitude;
 		double longitude;
-		// Vector of pointers to incident routes in the edge list; adjacency list
+		// Vector of pointers to incident routes (inbound and outbound) in the edge list; adjacency list
+		// A route is inbound if the current airportID is the destinationID
+		// A route is outbound if the current airportID is the sourceID
 		std::vector<Route*> routes;
-		// When setting to infinity, use DBL_MAX from #include <cfloat>
 		// Distance from starting airport (used for both algorithm)
 		double distance;
 		// Heuristic; distance from destination airport (set to 0 in Dijkstra)
