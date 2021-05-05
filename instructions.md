@@ -23,6 +23,8 @@ for example, 1, 2, 4, 5 in the data field would give 0,1,2,0,4,5 in the vertex t
 
 ## Accessing the vertex table
 1. Use `Graph.airports[ID]` or findAirport(ID) above
+2. Make sure to check if the airport is valid (if it has an id of 0), it is invalid
+3. findAirport(ID) will return NULL if invalid
 
 ## Accessing the adjacency list for a given airport
 1. Use `Graph.airports[ID].routes[INDEX]` or `findAirport(ID).routes[INDEX]`

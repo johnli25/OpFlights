@@ -87,8 +87,11 @@ Graph::Airport::Airport(){
 }
 
 Graph::Airport* Graph::findAirport(int id){
-  // Returns a pointer to the airport at the index of the id
-  return &airports[id];
+  // Returns a pointer to the airport at the index of the id if it is a valid airport
+  if (airports[id].id != 0){
+    return &airports[id];
+  }
+  return NULL;
 }
 
 void Graph::insertFront(Route ro){
@@ -128,18 +131,21 @@ void Graph::setRoutes(std::vector<Graph::Route> ro){
     // Find the source and destination airports
     Graph::Airport * sourceAirport = findAirport(cur.sourceAirportId);
     Graph::Airport * destinationAirport = findAirport(cur.destinationAirportId);
-    // Get their coordinates
-    double sourceLat = sourceAirport->latitude;
-    double sourceLong = sourceAirport->longitude;
-    double destinationLat = destinationAirport->latitude;
-    double destinationLong = destinationAirport->longitude;
-    // Calculate the euclidean distance between the two airports
-    cur.distance = std::sqrt(std::pow(sourceLat-destinationLat, 2) + std::pow(sourceLong-destinationLong, 2));
-    // Add the route to the front of the edge list
-    insertFront(cur);
-    // Insert a pointer to the route into both airports (it is the head of the edge list)
-    sourceAirport->routes.push_back(allRoutes);
-    destinationAirport->routes.push_back(allRoutes);
+    // The airports in the route must exist in the vertex table
+    if ((sourceAirport != NULL) && (destinationAirport != NULL)){
+      // Get their coordinates
+      double sourceLat = sourceAirport->latitude;
+      double sourceLong = sourceAirport->longitude;
+      double destinationLat = destinationAirport->latitude;
+      double destinationLong = destinationAirport->longitude;
+      // Calculate the euclidean distance between the two airports
+      cur.distance = std::sqrt(std::pow(sourceLat-destinationLat, 2) + std::pow(sourceLong-destinationLong, 2));
+      // Add the route to the front of the edge list
+      insertFront(cur);
+      // Insert a pointer to the route into both airports (it is the head of the edge list)
+      sourceAirport->routes.push_back(allRoutes);
+      destinationAirport->routes.push_back(allRoutes);
+    }
   }
 }
 
