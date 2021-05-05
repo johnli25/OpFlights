@@ -20,6 +20,7 @@ void Dijkstra::runDijkstra(){
 // work on this
 std::vector<int> findShortestPath(int destinationAirportId){
   std::vector<int> path;
+  destinationAirportId = 0; //filler value to avoid warning for now
   return path;
 }
 
