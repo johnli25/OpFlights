@@ -2,6 +2,9 @@
 #include <iterator>
 #include <queue>
 #include "Graph.h"
+#include <iostream>
+
+using namespace std;
 
 class AirportTraversal{
   public:
@@ -30,6 +33,8 @@ class AirportTraversal{
         Graph::Airport* startingAirport;
         // Airport the traversal is currently at
         Graph::Airport* currentAirport;
+
+        vector<bool> visited;
     };
     // Custom constructor
     // @param ap Pointer to the graph start Pointer to the airport in the graph to start BFS at

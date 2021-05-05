@@ -1,10 +1,15 @@
 #include <iterator>
 #include "AirportTraversal.h"
+#include <iostream>
+
+using namespace std;
 
 AirportTraversal::AirportTraversal(Graph * ap, Graph::Airport * start){
   graph = ap;
   startingAirport = start;
   add(startingAirport);
+
+
 }
 
 AirportTraversal::Iterator AirportTraversal::begin(){
@@ -47,10 +52,22 @@ AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph:
   currentAirport = start;
   // Reset the airports' values
   graph->reset();
+
+  visited.resize(graph->airports.size());
+  cout << visited.size() << endl;
+  for (size_t i = 0; i < visited.size(); i++){
+    visited[i] = false;
+  }  
 }
 
 // Work on this
 AirportTraversal::Iterator AirportTraversal::Iterator::operator++(){
+  if (!traversal->empty()){
+    currentAirport = traversal->pop();
+    visited[currentAirport->id] = true;
+  }
+
+
   return AirportTraversal::Iterator();
 }
 
@@ -60,5 +77,16 @@ Graph::Airport * AirportTraversal::Iterator::operator*(){
 
 // WOrk on this
 bool AirportTraversal::Iterator::operator!=(const Iterator &other){
-  return 0;
+  bool thisEmpty = false; 
+  bool otherEmpty = false;
+
+  if (traversal == NULL) { thisEmpty = true; }
+  if (other.traversal == NULL) { otherEmpty = true; }
+
+  if (!thisEmpty)  { thisEmpty = traversal->empty(); }
+  if (!otherEmpty) { otherEmpty = other.traversal->empty(); }
+
+  if (thisEmpty && otherEmpty) return false; // both empty then the traversals are equal, return true
+  else if ((!thisEmpty)&&(!otherEmpty)) return (traversal != other.traversal); //both not empty then compare the traversals (mostly false)
+  else return true; // one is empty while the other is not, return true
 }

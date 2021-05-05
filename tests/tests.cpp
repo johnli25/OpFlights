@@ -479,3 +479,7 @@ TEST_CASE("Verify that updateElem works down with heuristic"){
 		REQUIRE(expected[i] == test[i].distance);
 	}
 }
+
+TEST_CASE("BFS_basic"){
+
+}
