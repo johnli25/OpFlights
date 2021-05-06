@@ -65,9 +65,15 @@ AirportTraversal::Iterator AirportTraversal::Iterator::operator++(){
   if (!traversal->empty()){
     currentAirport = traversal->pop();
     visited[currentAirport->id] = true;
+    //push edges to be traversed
+    while (size_t i = 0; i < currentAirport->routes.size(); i++){
+      //complicated process of getting route Airports lmao
+      if(!visited[currentAirport->routes[i]->destinationAirportId]){
+	traversal->push_back(findAirport(currentAirport->routes[i]
+					 ->destinationAirportId));
+      }
+    }
   }
-
-
   return AirportTraversal::Iterator();
 }
 
