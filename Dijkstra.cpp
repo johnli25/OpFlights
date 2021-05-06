@@ -24,6 +24,19 @@ void Dijkstra::runDijkstra(){
   // line 20 --- to update distance: must get airport first, update distance 1st, pass in to update elem in heap: updateElem(airport)
   // A route is inbound if the current airportID is the destinationID
   // A route is outbound if the current airportID is the sourceID
+
+  //initialize predecessors and distances
+  double dist[];
+  int pred[];
+  //foreach (Vertex v: G)
+  for (unsigned long i = 0; i < sourceAirportId.routes.size(); i++){
+    dist[i] = DBL_MAX;
+    pred[i] = NULL;
+  }
+  dist[sourceAirportId] = 0;
+
+  //build queue
+  Heap queue();
   
 
 }
