@@ -25,6 +25,9 @@ void Dijkstra::runDijkstra(){
   //foreach (Vertex v: G)
   Graph::Airport * airport;
   for (int i = 0; i < num_airports; i++){
+    if (graph->findAirport(i) == NULL){
+      continue;
+    }
     airport = graph->findAirport(i);
     airport->distance = DBL_MAX;
     airport->predecessorId = 0;
@@ -69,8 +72,8 @@ void Dijkstra::runDijkstra(){
 // work on this
 std::vector<int> findShortestPath(int destinationAirportId){
   std::vector<int> path;
-  int destination = destinationAirportId;
-  
+  destinationAirportId = 0;
+
   return path;
 }
 
