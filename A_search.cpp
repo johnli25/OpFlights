@@ -14,13 +14,66 @@ A_search::A_search(Graph * airports, int sourceId){
   graph->reset();
 }
 
-void A_search::runA_search(){
+std::vector<int> A_search::runA_search(int destinationAirportId){
+  Heap queue = Heap(); 
+  //technically not a standard queue but functioning as a priority queue
+  Airport * end = findAirport(destinationAirportId);
+  Airport * curr = findAirport(SourceId);
+  curr->heuristic = distance(curr, end);
+  curr->distance = 0;
+  while(curr->id != destinationAirportId){
+    for(size_t i = 0; i < curr->routes.size(); i++){
+      int next_id = curr->routes[i]->destinationAirportId;
+      Graph::Airport * nextAirport = graph->findAirport(next_id);
+      if(!nextAirport->visited){ 
+	Graph::Airport * temp = nextAirport;
+        temp->heuristic = distance(nextAirport, end);
+        temp->distance = curr->distance + curr->routes[i].distance
+	  if(queue.exists(nextAirport)){
+	    //compare f values, need to add function to view current value
+	    //in heap.cpp
+	    if(true){  //only to avoid compiler errors
+	      nextAirport = temp;
+	      queue.updateElem(nextAirport);
+	      nextAirport->predecessorId = curr->id;
+	    }
+	  }
+	  else{
+	    nextAirport = temp;
+	    queue.push(nextAirport);
+	    nextAirport->predecessorId = curr->id;
+	  }
+	    
+      }
+    }
+    curr->visited = true;
+    curr = queue.pop();
+  }
+  vector<int> traversal;
+  Airport * traversalHelper = curr;
+  while(traversalHelper->id != sourceId){
+    traversal.insert(traversal.begin(), traversalHelper->id);
+    //insert traversal data backwards
+    traversalHelper = findAirport(traversalHelper->predecessorId);
+  }
+  traversal.insert(sourceId);
+  return traversal;
 }
 
-std::Vector<int> A_search::findShortestPAth(int destinationAirportId){
-  std::vector<int> path;
-  return path;
+double A_search::distance(Airport * sourceAirport, Airport * destinationAirport){
+  if ((sourceAirport != NULL) && (destinationAirport != NULL)){
+    // Get their coordinates
+    double sourceLat = sourceAirport->latitude;
+    double sourceLong = sourceAirport->longitude;
+    double destinationLat = destinationAirport->latitude;
+    double destinationLong = destinationAirport->longitude;
+    //return distance
+    return std::sqrt(std::pow(sourceLat-destinationLat, 2) + std::pow(sourceLong-destinationLong, 2));
+  }
+  //shouldn't ever be called
+  else return Airport();
 }
+
 
 void A_seach::setGraph(Graph * airports){
   graph = airports;

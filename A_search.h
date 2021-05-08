@@ -7,11 +7,11 @@ class A_search{
  public:
   A_search();
   A_search(Graph * ariports, int sourceId);
-  void runA_seach();
-  std::vector<int> findShortestPath(int destinationAirportId);
+  std::vector<int> runA_seach(int destinationAirportId);
   void setGraph(Graph * airports);
   void setStart(int sourceId);
  private:
+  double distance(Airport * sourceAirport, Airport * destinationAirport);
   Graph * graph;
   int sourceAirportId;
 };
