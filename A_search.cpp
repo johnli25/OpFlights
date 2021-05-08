@@ -29,19 +29,18 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
 	Graph::Airport * temp = nextAirport;
         temp->heuristic = distance(nextAirport, end);
         temp->distance = curr->distance + curr->routes[i].distance
+	  temp->predecessorId = curr->id;
 	  if(queue.exists(nextAirport)){
 	    //compare f values, need to add function to view current value
 	    //in heap.cpp
 	    if(true){  //only to avoid compiler errors
 	      nextAirport = temp;
 	      queue.updateElem(nextAirport);
-	      nextAirport->predecessorId = curr->id;
 	    }
 	  }
 	  else{
 	    nextAirport = temp;
 	    queue.push(nextAirport);
-	    nextAirport->predecessorId = curr->id;
 	  }
 	    
       }
