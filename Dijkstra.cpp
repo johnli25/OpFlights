@@ -32,25 +32,28 @@ void Dijkstra::runDijkstra(){
     airport->distance = DBL_MAX;
     airport->predecessorId = 0;
     airport->heuristic = 0;
+    airport->visited = false;
   }
   graph->findAirport(sourceAirportId)->distance = 0;
   // Build priority queue heap
   Heap queue(graph->airports); // Airports vector makes up vertices
   // Repeat until all vertices have been visited
   while (!queue.empty()){
-    Graph::Airport airport;
+    Graph::Airport * airport;
+    Graph::Airport temp;
     // Take current min distance airport
-     airport = queue.pop();
-     airport.heuristic = 1;
+    temp = queue.pop();
+    airport = graph->findAirport(temp.id);
+    airport->visited = true;
     // A route is inbound if the current airportID is the destinationID
     // A route is outbound if the current airportID is the sourceID
-    for (int k = 0; k < (int)airport.routes.size(); k++){
-      Graph::Route* rt = airport.routes[k];
-      if (rt->sourceAirportId == airport.id){
+    for (int k = 0; k < (int)airport->routes.size(); k++){
+      Graph::Route* rt = airport->routes[k];
+      if (rt->sourceAirportId == airport->id){
         Graph::Airport * neighbor = graph->findAirport(rt->destinationAirportId);
-        if (airport.distance + rt->distance < neighbor->distance && neighbor->heuristic != 1){
-          neighbor->distance = airport.distance + rt->distance;
-          neighbor->predecessorId = airport.id;
+        if (airport->distance + rt->distance < neighbor->distance && !neighbor->visited){
+          neighbor->distance = airport->distance + rt->distance;
+          neighbor->predecessorId = airport->id;
           // neighbor->heuristic = 1;
           queue.updateElem(*neighbor);
         }
