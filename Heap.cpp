@@ -208,7 +208,7 @@ void Heap::getElems(std::vector<Graph::Airport> & heaped) const{
   }
 }
 
-bool Heap::exists(const Graph::Airport & airport){
+Graph::Airport Heap::exists(const Graph::Airport & airport){
   // Find the index of the airport
   int idx = -1;
   for (size_t i = 1; i < size_; i++){
@@ -217,9 +217,11 @@ bool Heap::exists(const Graph::Airport & airport){
       break;
     }
   }
+  Graph::Airport retVal = Graph::Airport();
   // If can't find it, done
   if (idx == -1){
-    return false;
+    return retVal;
   }
-  return true;
+  retVal = _elems[idx];
+  return retVal;
 }

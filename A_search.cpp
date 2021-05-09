@@ -15,7 +15,7 @@ A_search::A_search(Graph * airports, int sourceId){
 }
 
 std::vector<int> A_search::runA_search(int destinationAirportId){
-  Heap queue = Heap(); 
+  Heap queue = Heap();
   //technically not a standard queue but functioning as a priority queue
   Airport * end = findAirport(destinationAirportId);
   Airport * curr = findAirport(SourceId);
@@ -25,24 +25,22 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
     for(size_t i = 0; i < curr->routes.size(); i++){
       int next_id = curr->routes[i]->destinationAirportId;
       Graph::Airport * nextAirport = graph->findAirport(next_id);
-      if(!nextAirport->visited){ 
+      if(!nextAirport->visited){
 	Graph::Airport * temp = nextAirport;
         temp->heuristic = distance(nextAirport, end);
         temp->distance = curr->distance + curr->routes[i].distance
-	  temp->predecessorId = curr->id;
-	  if(queue.exists(nextAirport)){
-	    //compare f values, need to add function to view current value
-	    //in heap.cpp
-	    if(true){  //only to avoid compiler errors
-	      nextAirport = temp;
-	      queue.updateElem(nextAirport);
-	    }
-	  }
-	  else{
+	temp->predecessorId = curr->id;
+	if(queue.exists(nextAirport)){
+	  Graph::Airport compare = queue.exists(nextAirport);
+	  if(compare.distance + compare.heuristic > temp->distance + temp->heurisitc){
 	    nextAirport = temp;
-	    queue.push(nextAirport);
+	    queue.updateElem(nextAirport);
 	  }
-	    
+	}
+	else{
+	  nextAirport = temp;
+	  queue.push(nextAirport);
+	}	    
       }
     }
     curr->visited = true;
@@ -55,7 +53,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
     //insert traversal data backwards
     traversalHelper = findAirport(traversalHelper->predecessorId);
   }
-  traversal.insert(sourceId);
+  traversal.insert(traversal.begin(), sourceId);
   return traversal;
 }
 

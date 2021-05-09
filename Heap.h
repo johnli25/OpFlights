@@ -47,7 +47,7 @@ class Heap
     size_t root() const;
 
     //Determines whether an element exists in the heap
-    bool exists(const Graph::Airport & airport);
+    Graph::Airport exists(const Graph::Airport & airport);
 
   private:
     // Holds the number of unremoved airports
