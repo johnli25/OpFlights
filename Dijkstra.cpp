@@ -41,13 +41,14 @@ void Dijkstra::runDijkstra(){
     Graph::Airport airport;
     // Take current min distance airport
      airport = queue.pop();
+     airport.heuristic = 1;
     // A route is inbound if the current airportID is the destinationID
     // A route is outbound if the current airportID is the sourceID
     for (int k = 0; k < (int)airport.routes.size(); k++){
       Graph::Route* rt = airport.routes[k];
       if (rt->sourceAirportId == airport.id){
         Graph::Airport * neighbor = graph->findAirport(rt->destinationAirportId);
-        if (airport.distance + rt->distance < neighbor->distance){
+        if (airport.distance + rt->distance < neighbor->distance && neighbor->heuristic != 1){
           neighbor->distance = airport.distance + rt->distance;
           neighbor->predecessorId = airport.id;
           // neighbor->heuristic = 1;
