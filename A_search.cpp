@@ -1,9 +1,10 @@
 #include "A_search.h"
+#include <iostream>
 
 //https://www.youtube.com/watch?v=ySN5Wnu88nE - this ones really good
 //https://www.youtube.com/watch?v=6TsL96NAZCo
 
-A_seach::A_search(){
+A_search::A_search(){
   graph = NULL;
   sourceAirportId = 0;
 }
@@ -17,47 +18,59 @@ A_search::A_search(Graph * airports, int sourceId){
 std::vector<int> A_search::runA_search(int destinationAirportId){
   Heap queue = Heap();
   //technically not a standard queue but functioning as a priority queue
-  Airport * end = findAirport(destinationAirportId);
-  Airport * curr = findAirport(SourceId);
+  Graph::Airport * end = graph->findAirport(destinationAirportId);
+  Graph::Airport * curr = graph->findAirport(sourceAirportId);
   curr->heuristic = distance(curr, end);
   curr->distance = 0;
-  while(curr->id != destinationAirportId){
-    for(size_t i = 0; i < curr->routes.size(); i++){
+  while(curr->id != destinationAirportId){ 
+  //while curr is not destination
+    for(size_t i = 0; i < curr->routes.size(); i++){ 
+    //traverse through each route
       int next_id = curr->routes[i]->destinationAirportId;
       Graph::Airport * nextAirport = graph->findAirport(next_id);
       if(!nextAirport->visited){
+      //if vertex is avaliable
 	Graph::Airport * temp = nextAirport;
         temp->heuristic = distance(nextAirport, end);
-        temp->distance = curr->distance + curr->routes[i].distance
+        temp->distance = curr->distance + curr->routes[i]->distance;
 	temp->predecessorId = curr->id;
-	if(queue.exists(nextAirport)){
-	  Graph::Airport compare = queue.exists(nextAirport);
-	  if(compare.distance + compare.heuristic > temp->distance + temp->heurisitc){
-	    nextAirport = temp;
-	    queue.updateElem(nextAirport);
+	if(queue.exists(*nextAirport).id != 0){
+	//if vertex already exists in queue
+	  Graph::Airport compare = queue.exists(*nextAirport);
+	  if(compare.distance + compare.heuristic > 
+	     temp->distance + temp->heuristic){
+	  //if new f value is lower, update 
+	    nextAirport->heuristic = temp->heuristic;
+	    nextAirport->distance = temp->distance;
+	    nextAirport->predecessorId = temp->predecessorId;
+	    queue.updateElem(*nextAirport);
 	  }
 	}
 	else{
-	  nextAirport = temp;
-	  queue.push(nextAirport);
+	//push since its not in queue
+	  nextAirport->heuristic = temp->heuristic;
+	  nextAirport->distance = temp->distance;
+	  nextAirport->predecessorId = temp->predecessorId;
+	  queue.push(*nextAirport);
 	}	    
       }
     }
     curr->visited = true;
-    curr = queue.pop();
+    curr = graph->findAirport(queue.peek().id);
+    queue.pop();
   }
-  vector<int> traversal;
-  Airport * traversalHelper = curr;
-  while(traversalHelper->id != sourceId){
+  std::vector<int> traversal;
+  Graph::Airport * traversalHelper = curr;
+  while(traversalHelper->id != sourceAirportId){
     traversal.insert(traversal.begin(), traversalHelper->id);
     //insert traversal data backwards
-    traversalHelper = findAirport(traversalHelper->predecessorId);
+    traversalHelper = graph->findAirport(traversalHelper->predecessorId);
   }
-  traversal.insert(traversal.begin(), sourceId);
+  traversal.insert(traversal.begin(), sourceAirportId);
   return traversal;
 }
 
-double A_search::distance(Airport * sourceAirport, Airport * destinationAirport){
+double A_search::distance(Graph::Airport * sourceAirport, Graph::Airport * destinationAirport){
   if ((sourceAirport != NULL) && (destinationAirport != NULL)){
     // Get their coordinates
     double sourceLat = sourceAirport->latitude;
@@ -68,16 +81,16 @@ double A_search::distance(Airport * sourceAirport, Airport * destinationAirport)
     return std::sqrt(std::pow(sourceLat-destinationLat, 2) + std::pow(sourceLong-destinationLong, 2));
   }
   //shouldn't ever be called
-  else return Airport();
+  else return 0;
 }
 
 
-void A_seach::setGraph(Graph * airports){
+void A_search::setGraph(Graph * airports){
   graph = airports;
 }
 
 void A_search::setStart(int sourceId){
-  sourceAirportId = sourceID;
+  sourceAirportId = sourceId;
 }
 
 

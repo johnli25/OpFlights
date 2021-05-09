@@ -1,5 +1,6 @@
 #include <cfloat>
 #include "Heap.h"
+#include <iostream>
 
 bool Heap::higherPriority(const Graph::Airport & airport1, const Graph::Airport & airport2) const{
   double dist1 = airport1.distance + airport1.heuristic;

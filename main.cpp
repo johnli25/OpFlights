@@ -8,14 +8,23 @@
 #include "Heap.h"
 #include "readFromFile.hpp"
 #include "Dijkstra.h"
+#include "A_search.h"
 
 int main() {
 	std::vector<Graph::Airport> airports;
-	airports = file_to_Airport("tests/airportsMain.dat.txt");
+	airports = file_to_Airport("tests/airportsSmall.dat.txt");
 	std::vector<Graph::Route> routes;
-	routes = file_to_Route("tests/routes.dat.txt");
+	routes = file_to_Route("tests/routesSmall.dat.txt");
 	Graph airportss(airports, routes);
-	Dijkstra(&airportss, 1);
+	//Dijkstra(&airportss, 1);
+
+	//testing A_search
+	
+        A_search aStar = A_search(&airportss, 1);
+	std::vector<int> traversal = aStar.runA_search(4);
+	for(size_t i=0; i < traversal.size(); i++){
+	  std::cout << traversal.at(i) << ' ';
+        }
 	/*
 	std::vector<Graph::Airport> airports;
 	airports = file_to_Airport("tests/airportsMain.dat.txt");
