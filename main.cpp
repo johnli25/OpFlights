@@ -12,16 +12,16 @@
 
 int main() {
 	std::vector<Graph::Airport> airports;
-	airports = file_to_Airport("tests/airportsSmall.dat.txt");
+	airports = file_to_Airport("tests/airportsALL.dat.txt");
 	std::vector<Graph::Route> routes;
-	routes = file_to_Route("tests/routesSmall.dat.txt");
+	routes = file_to_Route("tests/routesALL.dat.txt");
 	Graph airportss(airports, routes);
 	//Dijkstra(&airportss, 1);
 
 	//testing A_search
 	
         A_search aStar = A_search(&airportss, 1);
-	std::vector<int> traversal = aStar.runA_search(4);
+	std::vector<int> traversal = aStar.runA_search(4029);
 	for(size_t i=0; i < traversal.size(); i++){
 	  std::cout << traversal.at(i) << ' ';
         }
