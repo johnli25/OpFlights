@@ -70,10 +70,19 @@ void Dijkstra::runDijkstra(){
 }
 
 // work on this
-std::vector<int> findShortestPath(int destinationAirportId){
+std::vector<int> Dijkstra::findShortestPath(int destinationAirportId){
   std::vector<int> path;
-  destinationAirportId = 0;
-
+  path.push_back(destinationAirportId);
+  Graph::Airport * curr_airport = graph->findAirport(destinationAirportId);
+  // find path using predecessor
+  while (curr_airport != NULL){
+    int pred = curr_airport->predecessorId;
+    curr_airport = graph->findAirport(pred);
+    path.push_back(pred);
+  }
+  //reverse order of vector
+  std::reverse(path.begin(),path.end());
+  
   return path;
 }
 
