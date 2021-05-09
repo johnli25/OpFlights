@@ -37,36 +37,27 @@ void Dijkstra::runDijkstra(){
   // Build priority queue heap
   Heap queue(graph->airports); // Airports vector makes up vertices
   // Repeat until all vertices have been visited
-  for (int i = 0; i < num_airports; i++){
+  while (!queue.empty()){
     Graph::Airport airport;
     // Take current min distance airport
-    airport = queue.pop();
-    // invalid airports have ID of 0!!!
-    if (airport.id == 0){
-      continue;
-    }
-    // Examine neighbors: Any edge leaving the airport leads to a neighbor
-    for (int j = 0; j < num_airports; j++){
-      Graph::Airport * neighbor = graph->findAirport(j);
-      if (i == j || neighbor->id == 0){
-        continue;
-      }
-      // A route is inbound if the current airportID is the destinationID
-      // A route is outbound if the current airportID is the sourceID
-      //for (rt = airport.routes.begin(); rt < airport.routes.end(); rt++){
-      for (int k = 0; k < (int)airport.routes.size(); k++){
-        Graph::Route* rt = airport.routes[k];
-        if (rt->destinationAirportId == j){
-          if (airport.distance + rt->distance < neighbor->distance){
-            neighbor->distance = airport.distance + rt->distance;
-            neighbor->predecessorId = i;
-            neighbor->heuristic = 1;
-            queue.updateElem(*neighbor);
-          }
+     airport = queue.pop();
+    // A route is inbound if the current airportID is the destinationID
+    // A route is outbound if the current airportID is the sourceID
+    for (int k = 0; k < (int)airport.routes.size(); k++){
+      Graph::Route* rt = airport.routes[k];
+      if (rt->sourceAirportId == airport.id){
+        Graph::Airport * neighbor = graph->findAirport(rt->destinationAirportId);
+        if (airport.distance + rt->distance < neighbor->distance){
+          neighbor->distance = airport.distance + rt->distance;
+          neighbor->predecessorId = airport.id;
+          // neighbor->heuristic = 1;
+          queue.updateElem(*neighbor);
         }
       }
     }
+  
   }
+
 }
 
 // work on this
@@ -81,7 +72,7 @@ std::vector<int> Dijkstra::findShortestPath(int destinationAirportId){
     path.push_back(pred);
   }
   //reverse order of vector
-  std::reverse(path.begin(),path.end());
+  reverse(path.begin(),path.end());
   
   return path;
 }

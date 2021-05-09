@@ -483,3 +483,7 @@ TEST_CASE("Verify that updateElem works down with heuristic"){
 TEST_CASE("BFS_basic"){
 
 }
+
+TEST_CASE("Verify that Dijkstra constructor works"){
+	
+}
