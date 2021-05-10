@@ -108,16 +108,6 @@ void dijkstra(Graph * graph){
 			}
 			// Otherwise, find the shortest path to the destination
 			std::vector<int> path = dijk.findShortestPath(destinationAirportId);
-<<<<<<< HEAD
-			std::vector<std::string> shortest;
-			// Get their corresponding names
-			for (size_t i = 0; i < path.size(); i++){
-				shortest.push_back(graph->airports[path[i]].name);
-			}
-			cout<<"The shortest path from "<<startingAirport<<" to "<<destinationAirport<<" is:";
-			for (size_t i = 0; i < shortest.size(); i++){
-				cout<<shortest[i]<<endl;
-=======
 			// Vector of size 1 means only the destination airport Id is in it, meaning no path to it
 			if (path.size() == 1){
 				cout<<"There is no path from "<<startingAirport<<" to "<<destinationAirport<<endl;
@@ -131,7 +121,6 @@ void dijkstra(Graph * graph){
 				for (size_t i = 0; i < shortest.size(); i++){
 					cout<<shortest[i]<<endl;
 				}
->>>>>>> f4433894e107584b46e19c8848cdd7e12ad5457e
 			}
 		}else{
 			// Exit Dijkstra
