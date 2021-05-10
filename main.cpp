@@ -9,22 +9,164 @@
 #include "readFromFile.hpp"
 #include "Dijkstra.h"
 #include "A_search.h"
+using std::cout;
+using std::endl;
+using std::cin;
+
+// Asks the user to input the data and constructs the graph using it
+// @returns a pointer to the graph
+Graph * enterData(){
+	// Gets the data file for the airports and routes
+	cout<<"Enter the path to the airports data"<<endl;
+	std::string airportFileName;
+	cin>>airportFileName;
+	cout<<"Enter the path to the routes data"<<endl;
+	std::string routeFileName;
+	cin>>routeFileName;
+	// Converts data file to vector
+	std::vector<Graph::Airport> airports;
+	airports = file_to_Airport(airportFileName);
+	std::vector<Graph::Route> routes;
+	routes = file_to_Route(routeFileName);
+	// Constructs the graph using the vectors
+	Graph * graph = new Graph(airports, routes);
+	return graph;
+}
+
+void dijkstra(Graph * graph){
+	bool done = 0;
+	bool ranDijk = 0;
+	while (done != 1){
+		std::string startingAirport;
+		// Get the name of the airport to start Dijkstra at
+		cout<<"Enter the starting airport name: ";
+		cin>>std::ws;
+		std::getline(std::cin, startingAirport);
+		// Find the id corresponding to the starting airport
+		int startingAirportId = graph->findAirportID(startingAirport);
+		if (startingAirportId == 0){
+			// If can't find the airport, ask the user to reenter the airport name
+			cout<<"Airport not found"<<endl;
+			// Go back to while (done != 1)
+			continue;
+		}
+		// Otherwise, it is valid so run Dijkstra
+		Dijkstra dijk = Dijkstra(graph, startingAirportId);
+		// If haven't run Dijkstra using the startingAirportID, rerun it
+		if (ranDijk == 0){
+			dijk.runDijkstra();
+			ranDijk = 1;
+		}
+		cout<<"Enter 0 to re-enter starting airport name"<<endl;
+		cout<<"Enter 1 to find the shortest path to an destination airport"<<endl;
+		cout<<"Enter 2 to exit Dijkstra"<<endl;
+		int choice;
+		cin>>choice;
+		if (choice == 0){
+			// Need to rerun it using the new starting airport
+			ranDijk = 0;
+			// Goes back to while(done != 1)
+			continue;
+		}else if (choice == 1){
+			int destinationAirportId = 0;
+			std::string destinationAirport;
+			// Continue until it finds a valid airport
+			while (destinationAirportId == 0){
+				// Get the destination airport name
+				cout<<"Enter the destination airport name or EXIT to go back: ";
+				cin>>std::ws;
+				std::getline(std::cin, destinationAirport);
+				if (destinationAirport == "EXIT"){
+					// Exits while (destinationAirportId == 0)
+					break;
+				}
+				// Find the id corresponding to the destination airport
+				destinationAirportId = graph->findAirportID(destinationAirport);
+				if (destinationAirportId == 0){
+					// If can't find the airport, ask the user to reenter the airport name
+					cout<<"Airport not found"<<endl;
+					// Goes back to while (destinationAirportId == 0)
+					continue;
+				}
+			}
+			// User chose EXIT
+			if (destinationAirportId == 0){
+				// Goes back to while (done != 1)
+				continue;
+			}
+			// Otherwise, find the shortest path to the destination
+			std::vector<int> path = dijk.findShortestPath(destinationAirportId);
+			std::vector<std::string> shortest;
+			// Get their corresponding names
+			for (size_t i = 0; i < path.size(); i++){
+				shortest.push_back(graph->airports[path[i]].name);
+			}
+			cout<<"The shortest path from "<<startingAirport<<" to "<<destinationAirport<<" is "<<endl;
+			for (size_t i = 0; i < shortest.size(); i++){
+				cout<<shortest[i]<<endl;
+			}
+		}else{
+			// Exit Dijkstra
+			done = 1;
+			// Exits while (done != 1)
+			break;
+		}
+	}
+}
 
 int main() {
+	bool done = 0;
+	Graph * graph = NULL;
+	while (done != 1){
+		// If no graph has been created yet (first time run or when want to reenter data)
+		if (graph == NULL){
+			graph = enterData();
+		}
+		cout<<"Enter 0 to re-enter data"<<endl;
+		cout<<"Enter 1 for BFS iterator"<<endl;
+		cout<<"Enter 2 for Dijkstra"<<endl;
+		cout<<"Enter 3 for A*search"<<endl;
+		cout<<"Enter 4 to exit program"<<endl;
+		int choice;
+		cin>>choice;
+		if (choice == 0){
+			if (graph != NULL){
+				delete graph;
+			}
+			graph = NULL;
+			// Goes back to while (done != 1)
+			continue;
+		}else if (choice == 1){
+
+		}else if (choice == 2){
+			dijkstra(graph);
+		}else if (choice == 3){
+
+		}else{
+			done = 1;
+			// Exits while (done != 1)
+			break;
+		}
+	}
+	if (graph != NULL){
+		delete graph;
+	}
+/*
 	std::vector<Graph::Airport> airports;
-	airports = file_to_Airport("tests/airportsALL.dat.txt");
+	airports = file_to_Airport("tests/airportsExample.dat.txt");
 	std::vector<Graph::Route> routes;
-	routes = file_to_Route("tests/routesALL.dat.txt");
+	routes = file_to_Route("tests/routesExample.dat.txt");
 	Graph airportss(airports, routes);
 	//Dijkstra(&airportss, 1);
 
 	//testing A_search
-	
+
         A_search aStar = A_search(&airportss, 1);
 	std::vector<int> traversal = aStar.runA_search(4029);
 	for(size_t i=0; i < traversal.size(); i++){
 	  std::cout << traversal.at(i) << ' ';
         }
+				*/
 	/*
 	std::vector<Graph::Airport> airports;
 	airports = file_to_Airport("tests/airportsMain.dat.txt");
