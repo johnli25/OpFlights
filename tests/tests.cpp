@@ -4,6 +4,7 @@
 #include "../catch/catch.hpp"
 #include "../readFromFile.hpp"
 #include "../Heap.h"
+#include "../Dijkstra.h"
 
 TEST_CASE("Verify that file_to_Airport works on a small example") {
 	std::vector<Graph::Airport> airports = file_to_Airport("tests/airportsSmall.dat.txt");
@@ -484,6 +485,13 @@ TEST_CASE("BFS_basic"){
 
 }
 
-TEST_CASE("Verify that Dijkstra constructor works"){
+TEST_CASE("Verify that basic Dijkstra constructor works"){
+	std::vector<Graph::Airport> airports = file_to_Airport("tests/airportsSmall.dat.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/routesSmall.dat.txt");
+	Graph airports1(airports, routes);
+	Graph * expected = &airports1;
+	Dijkstra test(expected, 1);
+	
+	REQUIRE(expected == test.getGraph());
 	
 }

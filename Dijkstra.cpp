@@ -14,7 +14,6 @@ Dijkstra::Dijkstra(Graph * airports, int sourceId){
   graph->reset();
 }
 
-// work on this
 void Dijkstra::runDijkstra(){
   // reset distance, heuristic, predecessorID, and visited to 0 for each airport in the graph first
   // use graph as input to dijkstras 
@@ -64,7 +63,6 @@ void Dijkstra::runDijkstra(){
 
 }
 
-// work on this
 std::vector<int> Dijkstra::findShortestPath(int destinationAirportId){
   std::vector<int> path;
   path.push_back(destinationAirportId);
@@ -87,4 +85,9 @@ void Dijkstra::setGraph(Graph *airports){
 
 void Dijkstra::setStart(int sourceId){
   sourceAirportId = sourceId;
+}
+
+Graph * Dijkstra::getGraph(){
+  Graph * ptr = graph;
+  return ptr;
 }
