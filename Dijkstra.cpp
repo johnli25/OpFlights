@@ -16,7 +16,7 @@ Dijkstra::Dijkstra(Graph * airports, int sourceId){
 
 void Dijkstra::runDijkstra(){
   // reset distance, heuristic, predecessorID, and visited to 0 for each airport in the graph first
-  // use graph as input to dijkstras 
+  // use graph as input to dijkstras
   // line 20 --- to update distance: must get airport first, update distance 1st, pass in to update elem in heap: updateElem(airport)
 
   //initialize predecessors and distances
@@ -58,7 +58,7 @@ void Dijkstra::runDijkstra(){
         }
       }
     }
-  
+
   }
 
 }
@@ -74,8 +74,10 @@ std::vector<int> Dijkstra::findShortestPath(int destinationAirportId){
     path.push_back(pred);
   }
   //reverse order of vector
+  // Get rid of the 0
+  path.pop();
   reverse(path.begin(),path.end());
-  
+
   return path;
 }
 
