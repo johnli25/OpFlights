@@ -31,6 +31,10 @@ class Dijkstra{
     // @param id of starting airport
     void setStart(int sourceId);
 
+    // Returns a pointer to the input graph
+    // @param Dijkstra object
+    Graph * getGraph();
+
   private:
     // Pointer to airports graph
     Graph * graph;

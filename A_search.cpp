@@ -3,7 +3,49 @@
 //https://www.youtube.com/watch?v=ySN5Wnu88nE - this ones really good
 //https://www.youtube.com/watch?v=6TsL96NAZCo
 
+A_seach::A_search(){
+  graph = NULL;
+  sourceAirportId = 0;
+}
 
+A_search::A_search(Graph * airports, int sourceId){
+  graph = airports;
+  sourceAirportId = sourceId;
+  graph->reset();
+}
+
+void A_search::runA_search(){
+}
+
+std::Vector<int> A_search::findShortestPAth(int destinationAirportId){
+  std::vector<int> path;
+  return path;
+}
+
+void A_seach::setGraph(Graph * airports){
+  graph = airports;
+}
+
+void A_search::setStart(int sourceId){
+  sourceAirportId = sourceID;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 A_search(std::vector<Airport*> airports, Airport* source, Airport* destination){
   queue<int> weight;
   return A_search(weight, airports, start, end);
@@ -30,3 +72,4 @@ A_search(queue<int> weight, queue<Airport> queue, Airport* curr, Airport* end){ 
     //then push to airport to queue and push cost to weight
   }
 }
+*/
