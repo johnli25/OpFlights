@@ -102,7 +102,8 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
   // Build priority queue heap
   Heap queue(graph->airports); // Airports vector makes up vertices
   // Repeat until all vertices have been visited
-  while (!queue.empty()){
+  bool helper = true;
+  while (!queue.empty() && helper){
     Graph::Airport * airport;
     Graph::Airport temp;
     // Take current min distance airport
@@ -120,6 +121,10 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
           neighbor->predecessorId = airport->id;
           // neighbor->heuristic = 1;
           queue.updateElem(*neighbor);
+	  if(neighbor->id == sourceAirportId){
+	    helper = false;
+	    break;
+	  }
         }
       }
     }  
@@ -136,6 +141,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
     path.push_back(pred);
   }
   //reverse order of vector
+  path.pop();
   reverse(path.begin(),path.end());
   return path;
 }
