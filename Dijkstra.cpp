@@ -75,7 +75,7 @@ std::vector<int> Dijkstra::findShortestPath(int destinationAirportId){
   }
   //reverse order of vector
   // Get rid of the 0
-  path.pop();
+  path.pop_back();
   reverse(path.begin(),path.end());
 
   return path;

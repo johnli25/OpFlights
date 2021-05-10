@@ -27,7 +27,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
   // while(helper){
   //   //std::cout << "Curr=" << curr->id << std::endl;
   // //while curr is not destination
-  //   for(size_t i = 0; i < curr->routes.size(); i++){ 
+  //   for(size_t i = 0; i < curr->routes.size(); i++){
   //   //traverse through each route
   //     int next_id = curr->routes[i]->destinationAirportId;
   //     Graph::Airport * nextAirport = graph->findAirport(next_id);
@@ -43,7 +43,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
   //           //if vertex already exists in queue
   //           Graph::Airport compare = queue.exists(*nextAirport);
   //           if((compare.distance + compare.heuristic) > (temp->distance + temp->heuristic)){
-  //             //if new f value is lower, update 
+  //             //if new f value is lower, update
   //             nextAirport->heuristic = temp->heuristic;
   //             nextAirport->distance = temp->distance;
   //             nextAirport->predecessorId = temp->predecessorId;
@@ -60,7 +60,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
   //           //break if weve reached the end of traversal
   //           helper = false;
   //         }
-  //       }	    
+  //       }
   //     }
   //   }
   //   curr->visited = true;
@@ -127,7 +127,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
 	  }
         }
       }
-    }  
+    }
   }
 
   //Katrina's findShortestPath
@@ -141,7 +141,7 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
     path.push_back(pred);
   }
   //reverse order of vector
-  path.pop();
+  path.pop_back();
   reverse(path.begin(),path.end());
   return path;
 }
