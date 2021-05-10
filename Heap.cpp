@@ -1,5 +1,6 @@
 #include <cfloat>
 #include "Heap.h"
+#include <iostream>
 
 bool Heap::higherPriority(const Graph::Airport & airport1, const Graph::Airport & airport2) const{
   double dist1 = airport1.distance + airport1.heuristic;
@@ -206,4 +207,22 @@ void Heap::getElems(std::vector<Graph::Airport> & heaped) const{
   for (size_t i = root(); i < _elems.size(); i++) {
       heaped.push_back(_elems[i]);
   }
+}
+
+Graph::Airport Heap::exists(const Graph::Airport & airport){
+  // Find the index of the airport
+  int idx = -1;
+  for (size_t i = 1; i < size_; i++){
+    if (_elems[i].id == airport.id){
+      idx = i;
+      break;
+    }
+  }
+  Graph::Airport retVal = Graph::Airport();
+  // If can't find it, done
+  if (idx == -1){
+    return retVal;
+  }
+  retVal = _elems[idx];
+  return retVal;
 }

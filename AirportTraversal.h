@@ -19,7 +19,7 @@ class AirportTraversal{
         // Advances the iterator; Should add adjacent airports and go to one of them (only add airports that the current airport has a directed route to
         // Go through the adjacency list (routes vector) and check for routes that have the current airport as the sourceAirportID; the destinationID is
         // is the adjacent airport
-        Iterator operator++();
+        Iterator & operator++();
         // Accesses the current airport
         Graph::Airport * operator*();
         // Checks if the current iterator is not at the end
@@ -34,7 +34,6 @@ class AirportTraversal{
         // Airport the traversal is currently at
         Graph::Airport* currentAirport;
 
-        vector<bool> visited;
     };
     // Custom constructor
     // @param ap Pointer to the graph start Pointer to the airport in the graph to start BFS at

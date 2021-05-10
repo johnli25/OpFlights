@@ -1,17 +1,19 @@
 #pragma once
 #include <vector>
 #include <queue>
-#include "Airports.h"
+#include "Graph.h"
+#include "Heap.h"
 
 class A_search{
  public:
   A_search();
-  A_search(Graph * ariports, int sourceId);
-  void runA_seach();
-  std::vector<int> findShortestPath(int destinationAirportId);
+  A_search(Graph * airports, int sourceId);
+  std::vector<int> runA_search(int destinationAirportId);
+  std::vector<int> runA_seach(int destinationAirportId);
   void setGraph(Graph * airports);
   void setStart(int sourceId);
  private:
+  double distance(Graph::Airport * sourceAirport, Graph::Airport * destinationAirport);
   Graph * graph;
   int sourceAirportId;
 };

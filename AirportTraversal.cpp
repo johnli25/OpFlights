@@ -53,35 +53,36 @@ AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph:
   // Reset the airports' values
   graph->reset();
 
-  visited.resize(graph->airports.size());
-  cout << visited.size() << endl;
-  for (size_t i = 0; i < visited.size(); i++){
-    visited[i] = false;
-  }  
+  // visited.resize(graph->airports.size());
+  // cout << visited.size() << endl;
+  // for (size_t i = 0; i < visited.size(); i++){
+  //   visited[i] = false;
+  // }  
 }
 
-// Work on this
-AirportTraversal::Iterator AirportTraversal::Iterator::operator++(){
+AirportTraversal::Iterator & AirportTraversal::Iterator::operator++(){
   if (!traversal->empty()){
     currentAirport = traversal->pop();
-    visited[currentAirport->id] = true;
-    //push edges to be traversed
-    while (size_t i = 0; i < currentAirport->routes.size(); i++){
-      //complicated process of getting route Airports lmao
-      if(!visited[currentAirport->routes[i]->destinationAirportId]){
-	traversal->push_back(findAirport(currentAirport->routes[i]
-					 ->destinationAirportId));
-      }
+    currentAirport->visited = true;
+
+    for (size_t i = 0; i < currentAirport->routes.size(); i++){
+      int next_id = currentAirport->routes[i]->destinationAirportId;
+      Graph::Airport * nextAirport = graph->findAirport(next_id); // will this work? Is the graph empty?
+      if (!nextAirport->visited) 
+	        traversal->add(nextAirport);
     }
+
+    if (!traversal->empty())
+      currentAirport = traversal->peek();
   }
-  return AirportTraversal::Iterator();
+  return * this;
+//  return AirportTraversal::Iterator();
 }
 
 Graph::Airport * AirportTraversal::Iterator::operator*(){
   return currentAirport;
 }
 
-// WOrk on this
 bool AirportTraversal::Iterator::operator!=(const Iterator &other){
   bool thisEmpty = false; 
   bool otherEmpty = false;
