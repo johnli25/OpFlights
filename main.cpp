@@ -53,6 +53,10 @@ void dijkstra(Graph * graph){
 		if (startingAirportId == 0){
 			// If can't find the airport, ask the user to reenter the airport name
 			cout<<"Airport not found"<<endl;
+			// Need to rerun it using the new starting airport
+			ranDijk = 0;
+			// Reset the starting airport
+			startingAirport = "";
 			// Go back to while (done != 1)
 			continue;
 		}
