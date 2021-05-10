@@ -37,6 +37,7 @@ void dijkstra(Graph * graph){
 	bool done = 0;
 	bool ranDijk = 0;
 	std::string startingAirport;
+	Dijkstra dijk;
 	while (done != 1){
 		if (startingAirport == ""){
 			// Get the name of the airport to start Dijkstra at
@@ -61,9 +62,9 @@ void dijkstra(Graph * graph){
 			continue;
 		}
 		// Otherwise, it is valid so run Dijkstra
-		Dijkstra dijk = Dijkstra(graph, startingAirportId);
 		// If haven't run Dijkstra using the startingAirportID, rerun it
 		if (ranDijk == 0){
+			dijk = Dijkstra(graph, startingAirportId);
 			dijk.runDijkstra();
 			ranDijk = 1;
 		}
@@ -108,8 +109,10 @@ void dijkstra(Graph * graph){
 			}
 			// Otherwise, find the shortest path to the destination
 			std::vector<int> path = dijk.findShortestPath(destinationAirportId);
-			// Vector of size 1 means only the destination airport Id is in it, meaning no path to it
-			if (path.size() == 1){
+			if (destinationAirportId == startingAirportId){
+				cout<<"You are already at "<<startingAirport<<endl;
+			}else if (path.size() == 1){
+				// Vector of size 1 means only the destination airport Id is in it, meaning no path to it
 				cout<<"There is no path from "<<startingAirport<<" to "<<destinationAirport<<endl;
 			}else{
 				std::vector<std::string> shortest;
@@ -117,7 +120,7 @@ void dijkstra(Graph * graph){
 				for (size_t i = 0; i < path.size(); i++){
 					shortest.push_back(graph->airports[path[i]].name);
 				}
-				cout<<"The shortest path from "<<startingAirport<<" to "<<destinationAirport<<" is:";
+				cout<<"The shortest path from "<<startingAirport<<" to "<<destinationAirport<<" is:"<<endl;
 				for (size_t i = 0; i < shortest.size(); i++){
 					cout<<shortest[i]<<endl;
 				}
