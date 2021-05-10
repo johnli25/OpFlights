@@ -161,3 +161,16 @@ void Graph::reset(){
     }
   }
 }
+
+int Graph::findAirportID(std::string airportName){
+  int airportId = 0;
+	for (size_t i = 0; i < airports.size(); i++){
+		if (airports[i].id != 0){
+			if (airports[i].name == airportName){
+				airportId = airports[i].id;
+				break;
+			}
+		}
+	}
+	return airportId;
+}

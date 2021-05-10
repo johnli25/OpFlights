@@ -80,4 +80,9 @@ struct Graph{
 
 	// Resets the distance, heuristic, visited, and predecessorId of every valid airport in the graph
 	void reset();
+
+	// Finds the airport id corresponding to the name of the airport
+	// @param name of the airport (Cap-sensitive)
+	// @return id of the airport or 0 if airport not found
+	int findAirportID(std::string airportName);
 };
