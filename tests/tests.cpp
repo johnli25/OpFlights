@@ -495,3 +495,71 @@ TEST_CASE("Verify that basic Dijkstra constructor works"){
 	REQUIRE(expected == test.getGraph());
 	
 }
+
+//A_search tests
+TEST_CASE("Verify that basic A_search constructor works"){
+	std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+	Graph * expected = &airports1;
+        A_search test(expected, 1);
+	
+	REQUIRE(expected == test.getGraph());
+	
+}
+
+TEST_CASE("Verify that basic A_search output is correct"){
+  //tests a path where there is only one route
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_Search(airports1, 1);
+	vector<int> expected = {1, 13, 7, 11, 9};
+	vector<int> test = testA_Search.runA_search(9);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i].distance);
+	}
+
+}
+
+TEST_CASE("Verify that basic A_search output is correct"){
+  //tests a path where there are multiple routes, but one shortest route
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_Search(airports1, 2);
+	vector<int> expected = {1, 3, 2};
+	vector<int> test = testA_Search.runA_search(2);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i].distance);
+	}
+
+}
+
+TEST_CASE("Verify that A_search only visits nodes with lowest f value"){
+  //tests what nodes have been visited, nodes to be visited has been calculated by hand
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_Search(airports1, 1);
+	vector<int> expected = {1, 13, 7, 11, 9};
+	vector<int> test = testA_Search.runA_search(9);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i].distance);
+	}
+	//first test output
+
+	REQUIRE(airports1.findAirport(1)->visited == true);
+	REQUIRE(airports1.findAirport(3)->visited == true);
+	REQUIRE(airports1.findAirport(2)->visited == true);
+	REQUIRE(airports1.findAirport(12)->visited == true);
+	REQUIRE(airports1.findAirport(8)->visited == true);
+	REQUIRE(airports1.findAirport(13)->visited == true);
+	REQUIRE(airports1.findAirport(7)->visited == true);
+	REQUIRE(airports1.findAirport(11)->visited == true);
+	REQUIRE(airports1.findAirport(9)->visited == true);
+
+}
