@@ -4,9 +4,9 @@
 
 using namespace std;
 
-AirportTraversal::AirportTraversal(Graph * ap, Graph::Airport * start){
+AirportTraversal::AirportTraversal(Graph * ap, int startId){
   graph = ap;
-  startingAirport = start;
+  startingAirport = graph->findAirport(startId);
   add(startingAirport);
 
 
@@ -57,7 +57,7 @@ AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph:
   // cout << visited.size() << endl;
   // for (size_t i = 0; i < visited.size(); i++){
   //   visited[i] = false;
-  // }  
+  // }
 }
 
 AirportTraversal::Iterator & AirportTraversal::Iterator::operator++(){
@@ -68,7 +68,7 @@ AirportTraversal::Iterator & AirportTraversal::Iterator::operator++(){
     for (size_t i = 0; i < currentAirport->routes.size(); i++){
       int next_id = currentAirport->routes[i]->destinationAirportId;
       Graph::Airport * nextAirport = graph->findAirport(next_id); // will this work? Is the graph empty?
-      if (!nextAirport->visited) 
+      if (!nextAirport->visited)
 	        traversal->add(nextAirport);
     }
 
@@ -84,7 +84,7 @@ Graph::Airport * AirportTraversal::Iterator::operator*(){
 }
 
 bool AirportTraversal::Iterator::operator!=(const Iterator &other){
-  bool thisEmpty = false; 
+  bool thisEmpty = false;
   bool otherEmpty = false;
 
   if (traversal == NULL) { thisEmpty = true; }

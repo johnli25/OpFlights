@@ -9,6 +9,7 @@
 #include "readFromFile.hpp"
 #include "Dijkstra.h"
 #include "A_search.h"
+#include "AirportTraversal.h"
 using std::cout;
 using std::endl;
 using std::cin;
@@ -19,10 +20,10 @@ Graph * enterData(){
 	// Gets the data file for the airports and routes
 	cout<<"Enter the path to the airports data"<<endl;
 	std::string airportFileName;
-	cin>>airportFileName;
+	std::getline(std::cin, airportFileName);
 	cout<<"Enter the path to the routes data"<<endl;
 	std::string routeFileName;
-	cin>>routeFileName;
+	std::getline(std::cin, routeFileName);
 	// Converts data file to vector
 	std::vector<Graph::Airport> airports;
 	airports = file_to_Airport(airportFileName);
@@ -37,20 +38,21 @@ void dijkstra(Graph * graph){
 	bool done = 0;
 	bool ranDijk = 0;
 	std::string startingAirport;
+	int startingAirportId;
 	Dijkstra dijk;
 	while (done != 1){
 		if (startingAirport == ""){
 			// Get the name of the airport to start Dijkstra at
 			cout<<"Enter the starting airport name or EXIT to go back: ";
-			cin>>std::ws;
 			std::getline(std::cin, startingAirport);
 			if (startingAirport == "EXIT"){
 				// Exits while (done != 1)
 				break;
 			}
+			// Find the id corresponding to the starting airport
+			startingAirportId = graph->findAirportID(startingAirport);
 		}
-		// Find the id corresponding to the starting airport
-		int startingAirportId = graph->findAirportID(startingAirport);
+		// Check for valid airport
 		if (startingAirportId == 0){
 			// If can't find the airport, ask the user to reenter the airport name
 			cout<<"Airport not found"<<endl;
@@ -71,23 +73,22 @@ void dijkstra(Graph * graph){
 		cout<<"Enter 0 to re-enter starting airport name"<<endl;
 		cout<<"Enter 1 to find the shortest path to an destination airport"<<endl;
 		cout<<"Enter 2 to exit Dijkstra"<<endl;
-		int choice;
-		cin>>choice;
-		if (choice == 0){
+		std::string choice;
+		std::getline(std::cin, choice);
+		if (choice == "0"){
 			// Need to rerun it using the new starting airport
 			ranDijk = 0;
 			// Reset the starting airport
 			startingAirport = "";
 			// Goes back to while(done != 1)
 			continue;
-		}else if (choice == 1){
+		}else if (choice == "1"){
 			int destinationAirportId = 0;
 			std::string destinationAirport;
 			// Continue until it finds a valid airport
 			while (destinationAirportId == 0){
 				// Get the destination airport name
 				cout<<"Enter the destination airport name or EXIT to go back: ";
-				cin>>std::ws;
 				std::getline(std::cin, destinationAirport);
 				if (destinationAirport == "EXIT"){
 					// Exits while (destinationAirportId == 0)
@@ -134,6 +135,88 @@ void dijkstra(Graph * graph){
 	}
 }
 
+void bfs(Graph * graph){
+	bool done = 0;
+	std::string startingAirport = "";
+	while (done != 1){
+		if (startingAirport == ""){
+			// Get the name of the airport to start the iterator at
+			cout<<"Enter the starting airport name or EXIT to go back: ";
+			std::getline(std::cin, startingAirport);
+			if (startingAirport == "EXIT"){
+				// Exits while (done != 1)
+				break;
+			}
+		}
+		// Find the id corresponding to the starting airport
+		int startingAirportId = graph->findAirportID(startingAirport);
+		if (startingAirportId == 0){
+			// If can't find the airport, ask the user to reenter the airport name
+			cout<<"Airport not found"<<endl;
+			// Reset the starting airport
+			startingAirport = "";
+			// Go back to while (done != 1)
+			continue;
+		}
+		cout<<"Enter 0 to re-enter starting airport name"<<endl;
+		cout<<"Enter 1 to start BFS iterator"<<endl;
+		cout<<"Enter 2 to exit BFS iterator"<<endl;
+		std::string choice;
+		std::getline(std::cin, choice);
+		if (choice == "0"){
+			// Reset the starting airport
+			startingAirport = "";
+			// Goes back to while(done != 1)
+			continue;
+		}else if (choice == "1"){
+			bool exit = 0;
+			// Create the traversal
+			AirportTraversal ap = AirportTraversal(graph, startingAirportId);
+			// Get iterator to start
+			auto cur = ap.begin();
+			while (exit != 1){
+				cout<<"Enter 0 to see where you are currently at"<<endl;
+				cout<<"Enter 1 to move to the next airport"<<endl;
+				cout<<"Enter 2 to restart at the beginning"<<endl;
+				cout<<"Enter 3 to go back"<<endl;
+				std::string choice1;
+				std::getline(std::cin, choice1);
+				if (choice1 == "0"){
+					// If not at the end
+					if (cur != ap.end()){
+						cout<<"You are currently at "<<(*cur)->name<<endl;
+					}else{
+						cout<<"You have reached the end"<<endl;
+					}
+				}else if (choice1 == "1"){
+					if (cur != ap.end()){
+						++cur;
+						if (cur != ap.end()){
+							cout<<"You are currently at "<<(*cur)->name<<endl;
+						}else{
+							cout<<"You have reached the end"<<endl;
+						}
+					}else{
+						cout<<"You have reached the end"<<endl;
+					}
+				}else if (choice1 == "2"){
+					ap = AirportTraversal(graph, startingAirportId);
+					cur = ap.begin();
+				}else{
+					// Exits while (exit != 1)
+					exit = 1;
+					break;
+				}
+			}
+		}else{
+			// Exit BFS
+			done = 1;
+			// Exits while (done != 1)
+			break;
+		}
+	}
+}
+
 int main() {
 	bool done = 0;
 	Graph * graph = NULL;
@@ -147,24 +230,20 @@ int main() {
 		cout<<"Enter 2 for Dijkstra"<<endl;
 		cout<<"Enter 3 for A*search"<<endl;
 		cout<<"Enter 4 to exit program"<<endl;
-		int choice;
-		cin>>choice;
-		if (choice == 0){
+		std::string choice;
+		std::getline(std::cin, choice);
+		if (choice == "0"){
 			if (graph != NULL){
 				delete graph;
 			}
 			graph = NULL;
 			// Goes back to while (done != 1)
 			continue;
-		}else if (choice == 1){
-			// DO THIS!!!!!!!!!
-			// Runs BFS iterator
-			// Make a new function; asks the user to input starting airport
-			// then asks if the user wants to see current airport, next airport, etc. using the BFS
-			//bfs(graph);
-		}else if (choice == 2){
+		}else if (choice == "1"){
+			bfs(graph);
+		}else if (choice == "2"){
 			dijkstra(graph);
-		}else if (choice == 3){
+		}else if (choice == "3"){
 			// DO THIS!!!!!!!!
 			// Runs A*Search
 			// Make a new function; asks the user to input starting airport and destination airport

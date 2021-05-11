@@ -110,6 +110,10 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
     temp = queue.pop();
     airport = graph->findAirport(temp.id);
     airport->visited = true;
+    // End it if popped off the destination from the heap
+    if (airport->id == destinationAirportId){
+      break;
+    }
     // A route is inbound if the current airportID is the destinationID
     // A route is outbound if the current airportID is the sourceID
     for (int k = 0; k < (int)airport->routes.size(); k++){
@@ -121,10 +125,6 @@ std::vector<int> A_search::runA_search(int destinationAirportId){
           neighbor->predecessorId = airport->id;
           // neighbor->heuristic = 1;
           queue.updateElem(*neighbor);
-	  if(neighbor->id == sourceAirportId){
-	    helper = false;
-	    break;
-	  }
         }
       }
     }
