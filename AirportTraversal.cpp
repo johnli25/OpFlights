@@ -8,8 +8,6 @@ AirportTraversal::AirportTraversal(Graph * ap, int startId){
   graph = ap;
   startingAirport = graph->findAirport(startId);
   add(startingAirport);
-
-
 }
 
 AirportTraversal::Iterator AirportTraversal::begin(){
@@ -43,6 +41,8 @@ AirportTraversal::Iterator::Iterator(){
   traversal = NULL;
   startingAirport = NULL;
   currentAirport = NULL;
+  numVisited = 0;
+  currentIndex = 0;
 }
 
 AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph::Airport* start){
@@ -50,33 +50,40 @@ AirportTraversal::Iterator::Iterator(Graph * ap, AirportTraversal * trav, Graph:
   traversal = trav;
   startingAirport = start;
   currentAirport = start;
+  numVisited = 0;
+  currentIndex = 0;
   // Reset the airports' values
   graph->reset();
-
-  // visited.resize(graph->airports.size());
-  // cout << visited.size() << endl;
-  // for (size_t i = 0; i < visited.size(); i++){
-  //   visited[i] = false;
-  // }
 }
 
 AirportTraversal::Iterator & AirportTraversal::Iterator::operator++(){
   if (!traversal->empty()){
     currentAirport = traversal->pop();
     currentAirport->visited = true;
-
+    numVisited++;
     for (size_t i = 0; i < currentAirport->routes.size(); i++){
       int next_id = currentAirport->routes[i]->destinationAirportId;
       Graph::Airport * nextAirport = graph->findAirport(next_id); // will this work? Is the graph empty?
-      if (!nextAirport->visited)
-	        traversal->add(nextAirport);
+      if (!nextAirport->visited){
+        traversal->add(nextAirport);
+      }
     }
-
-    if (!traversal->empty())
+    if (!traversal->empty()){
       currentAirport = traversal->peek();
+    }else if (numVisited != graph->numAirports){
+      // If traversal is empty but there are still airports left to visit, iterate through vertex table
+      for (size_t i = currentIndex; i < graph->airports.size(); i++){
+        currentIndex++;
+        Graph::Airport * nextAirport = graph->findAirport(i);
+        if (nextAirport != NULL && !nextAirport->visited){
+          traversal->add(nextAirport);
+          currentAirport = traversal->peek();
+          break;
+        }
+      }
+    }
   }
   return * this;
-//  return AirportTraversal::Iterator();
 }
 
 Graph::Airport * AirportTraversal::Iterator::operator*(){

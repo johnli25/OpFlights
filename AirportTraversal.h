@@ -33,7 +33,10 @@ class AirportTraversal{
         Graph::Airport* startingAirport;
         // Airport the traversal is currently at
         Graph::Airport* currentAirport;
-
+        // Used to optimize the iterator so it doesn't start at the beginning everytime there is a disconnect part
+        int currentIndex;
+        // Number of airports visited
+        int numVisited;
     };
     // Custom constructor
     // @param ap Pointer to the graph startId id of airport in the graph to start BFS at
@@ -55,4 +58,5 @@ class AirportTraversal{
     Graph * graph;
     // Airport to start the traversal at
     Graph::Airport * startingAirport;
+    // Current index in the vertex table; used to iterate through the vertex table to find an unvisited airport when there are disconnected parts
 };
