@@ -169,7 +169,7 @@ void Heap::push(const Graph::Airport & airport){
 void Heap::updateElem(const Graph::Airport & airport){
   // Find the index of the airport
   int idx = -1;
-  for (size_t i = 1; i < size_; i++){
+  for (size_t i = 1; i < _elems.size(); i++){
     if (_elems[i].id == airport.id){
       idx = i;
       break;
@@ -212,7 +212,7 @@ void Heap::getElems(std::vector<Graph::Airport> & heaped) const{
 Graph::Airport Heap::exists(const Graph::Airport & airport){
   // Find the index of the airport
   int idx = -1;
-  for (size_t i = 1; i < size_; i++){
+  for (size_t i = 1; i < _elems.size(); i++){
     if (_elems[i].id == airport.id){
       idx = i;
       break;
