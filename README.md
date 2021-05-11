@@ -1,23 +1,23 @@
 # CS225 Project bthuma2-johnwl2-jlin208-kpang3
 
 ## Important Files
-1. readFromFile.hpp and readFromFile.cpp
+1. `readFromFile.hpp` and `readFromFile.cpp`
 Code to read airports and routes data file into vectors
-2. Graph.h and Graph.cpp
+2. `Graph.h` and `Graph.cpp`
 Code to create the graph data structure from vectors
-3. Heap.h and Heap.cpp
+3. `Heap.h` and `Heap.cpp`
 Code to create the priority queue used for Dijkstra and A*search
-4. AirportTraversal.h and AirportTraversal.cpp
+4. `AirportTraversal.h` and `AirportTraversal.cpp`
 Code to create the BFS iterator on the graph
-5. Dijkstra.h and Dijkstra.cpp
+5. `Dijkstra.h` and `Dijkstra.cpp`
 Code to run Dijkstra's algorithm on the graph
-6. A_search.h and A_search.cpp
+6. `A_search.h` and `A_search.cpp`
 Code to run A*search on the graph
-7. main.cpp
+7. `main.cpp`
 Main code that provides prompts for the user to use the functions
-8. tests/tests.cpp
+8. `tests/tests.cpp`
 Code containing the test files
-9. tests/..
+9. `tests/..`
 Folder containing the data files
 
 ## Instructions
@@ -30,4 +30,4 @@ Folder containing the data files
 
 **Building and using test**
 1. `make test` to build tests/tests.cpp
-2. './test' to run the test
+2. `./test` to run the test

@@ -14,3 +14,9 @@
 **Week of 5/2**
 1) Foundations for Dijkstra
 2) Foundations for BFS iterator
+
+**Week of 5/9**
+1) Finished main function
+2) Finished Dijkstra
+3) Finished BFS Iterator
+4) Finished A*search
