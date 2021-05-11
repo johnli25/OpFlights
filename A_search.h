@@ -9,7 +9,6 @@ class A_search{
   A_search();
   A_search(Graph * airports, int sourceId);
   std::vector<int> runA_search(int destinationAirportId);
-  std::vector<int> runA_seach(int destinationAirportId);
   void setGraph(Graph * airports);
   void setStart(int sourceId);
  private:
