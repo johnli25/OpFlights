@@ -486,16 +486,13 @@ TEST_CASE("Verify that updateElem works down with heuristic"){
 }
 
 //BFS tests
-TEST_CASE("BFS_basic"){
-  //probably want to do a for loop with the iterator
-  //check that each++ is what it should be by a paper evaluation
-  //of the traversal
-    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+TEST_CASE("Verify that a basic BFS traversal works"){
+  //TRaversal has been calculated by hand based on our implementation
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
 	Graph * expected = &airports1;
 	AirportTraversal TraversalTest(expected, 1);
-//	for (AirportTraversal::Iterator it = TraversalTest->begin(); it != TraversalTest->end(); ++it){
 	AirportTraversal::Iterator it = TraversalTest.begin();
 	REQUIRE( *it == airports1.findAirport(1)); ++it;
 	REQUIRE( *it == airports1.findAirport(12)); ++it;
@@ -511,10 +508,93 @@ TEST_CASE("BFS_basic"){
 	REQUIRE( *it == airports1.findAirport(6)); ++it;	
 	REQUIRE( *it == airports1.findAirport(10)); ++it;	
 	REQUIRE( *it == airports1.findAirport(14)); ++it;	
-	REQUIRE( *it == airports1.findAirport(15)); ++it;												
-											
-										
+	REQUIRE( *it == airports1.findAirport(15)); ++it;
+
+         						
 }
+
+TEST_CASE("Verify that a basic BFS traversal works 2"){
+  //TRaversal has been calculated by hand based on our implementation
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+	Graph * expected = &airports1;
+	AirportTraversal TraversalTest(expected, 4);
+	AirportTraversal::Iterator it = TraversalTest.begin();
+	REQUIRE( *it == airports1.findAirport(4)); ++it;
+	REQUIRE( *it == airports1.findAirport(8)); ++it;
+	REQUIRE( *it == airports1.findAirport(5)); ++it;
+        REQUIRE( *it == airports1.findAirport(1)); ++it;
+	REQUIRE( *it == airports1.findAirport(12)); ++it;
+	REQUIRE( *it == airports1.findAirport(13)); ++it;
+	REQUIRE( *it == airports1.findAirport(3)); ++it;
+	REQUIRE( *it == airports1.findAirport(7)); ++it;
+	REQUIRE( *it == airports1.findAirport(2)); ++it;	
+	REQUIRE( *it == airports1.findAirport(11)); ++it;		
+	REQUIRE( *it == airports1.findAirport(9)); ++it;
+	REQUIRE( *it == airports1.findAirport(6)); ++it;	
+	REQUIRE( *it == airports1.findAirport(10)); ++it;	
+	REQUIRE( *it == airports1.findAirport(14)); ++it;	
+	REQUIRE( *it == airports1.findAirport(15)); ++it;
+
+         						
+}
+
+TEST_CASE("Verify that a basic BFS traversal works 3"){
+  //TRaversal has been calculated by hand based on our implementation
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+	Graph * expected = &airports1;
+	AirportTraversal TraversalTest(expected, 3);
+	AirportTraversal::Iterator it = TraversalTest.begin();
+	REQUIRE( *it == airports1.findAirport(3)); ++it;
+	REQUIRE( *it == airports1.findAirport(2)); ++it;
+	REQUIRE( *it == airports1.findAirport(1)); ++it;
+	REQUIRE( *it == airports1.findAirport(12)); ++it;
+	REQUIRE( *it == airports1.findAirport(13)); ++it;
+	REQUIRE( *it == airports1.findAirport(8)); ++it;
+	REQUIRE( *it == airports1.findAirport(7)); ++it;
+	REQUIRE( *it == airports1.findAirport(5)); ++it;	
+	REQUIRE( *it == airports1.findAirport(11)); ++it;	
+	REQUIRE( *it == airports1.findAirport(4)); ++it;	
+	REQUIRE( *it == airports1.findAirport(9)); ++it;
+	REQUIRE( *it == airports1.findAirport(6)); ++it;	
+	REQUIRE( *it == airports1.findAirport(10)); ++it;	
+	REQUIRE( *it == airports1.findAirport(14)); ++it;	
+	REQUIRE( *it == airports1.findAirport(15)); ++it;
+
+         						
+}
+
+
+TEST_CASE("Verify that a BFS traversal works when starting node has no paths"){
+  //TRaversal has been calculated by hand based on our implementation
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+	Graph * expected = &airports1;
+	AirportTraversal TraversalTest(expected, 15);
+	AirportTraversal::Iterator it = TraversalTest.begin();
+	REQUIRE( *it == airports1.findAirport(15)); ++it;
+	REQUIRE( *it == airports1.findAirport(1)); ++it;
+	REQUIRE( *it == airports1.findAirport(12)); ++it;
+	REQUIRE( *it == airports1.findAirport(13)); ++it;
+	REQUIRE( *it == airports1.findAirport(3)); ++it;
+	REQUIRE( *it == airports1.findAirport(8)); ++it;
+	REQUIRE( *it == airports1.findAirport(7)); ++it;
+	REQUIRE( *it == airports1.findAirport(2)); ++it;
+	REQUIRE( *it == airports1.findAirport(5)); ++it;	
+	REQUIRE( *it == airports1.findAirport(11)); ++it;	
+	REQUIRE( *it == airports1.findAirport(4)); ++it;	
+	REQUIRE( *it == airports1.findAirport(9)); ++it;
+	REQUIRE( *it == airports1.findAirport(6)); ++it;	
+	REQUIRE( *it == airports1.findAirport(10)); ++it;	
+	REQUIRE( *it == airports1.findAirport(14)); ++it;	
+
+         						
+}
+
 
 //Dijkstra tests
 TEST_CASE("Verify that basic Dijkstra constructor works"){
@@ -560,6 +640,37 @@ TEST_CASE("Verify that a complex Dijkstra output is correct"){
 
 }
 
+TEST_CASE("Verify that a complex Dijkstra output is correct 2"){
+  //tests a path where there are multiple routes, but one shortest route
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        Dijkstra testDijkstra(&airports1, 13);
+	std::vector<int> expected = {13, 1, 3};
+	testDijkstra.runDijkstra();
+	std::vector<int> test = testDijkstra.findShortestPath(3);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+
+}
+
+TEST_CASE("Verify that a complex Dijkstra output is correct 3"){
+  //tests a path where there are multiple routes, but one shortest route
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        Dijkstra testDijkstra(&airports1, 14);
+	std::vector<int> expected = {14, 10};
+	testDijkstra.runDijkstra();
+	std::vector<int> test = testDijkstra.findShortestPath(10);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+
+}
 TEST_CASE("Verify that an empty Dijkstra output is correct"){
   //tests a path where there is no route, should not give a path
         std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
@@ -686,6 +797,74 @@ TEST_CASE("Verify that A_search only visits nodes with lowest f value"){
 	REQUIRE(airports1.findAirport(10)->visited == false);
 	REQUIRE(airports1.findAirport(11)->visited == true);
 	REQUIRE(airports1.findAirport(12)->visited == true);
+	REQUIRE(airports1.findAirport(13)->visited == true);
+	REQUIRE(airports1.findAirport(14)->visited == false);
+	REQUIRE(airports1.findAirport(15)->visited == false);
+	//check that A star visited all points that would be
+	//necessary in a proper implementation
+
+}
+
+TEST_CASE("Verify that A_search only visits nodes with lowest f value 2"){
+  //tests what nodes have been visited, nodes to be visited has been calculated by hand
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_Search(&airports1, 9);
+	std::vector<int> expected = {9, 2, 3, 1, 13};
+	std::vector<int> test = testA_Search.runA_search(13);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+	//first test output
+
+	REQUIRE(airports1.findAirport(1)->visited == true);
+	REQUIRE(airports1.findAirport(2)->visited == true);
+	REQUIRE(airports1.findAirport(3)->visited == true);
+	REQUIRE(airports1.findAirport(4)->visited == false);
+	REQUIRE(airports1.findAirport(5)->visited == false);
+	REQUIRE(airports1.findAirport(6)->visited == false);
+	REQUIRE(airports1.findAirport(7)->visited == false);
+	REQUIRE(airports1.findAirport(8)->visited == false);
+	REQUIRE(airports1.findAirport(9)->visited == true);
+	REQUIRE(airports1.findAirport(10)->visited == false);
+	REQUIRE(airports1.findAirport(11)->visited == true);
+	REQUIRE(airports1.findAirport(12)->visited == false);
+	REQUIRE(airports1.findAirport(13)->visited == true);
+	REQUIRE(airports1.findAirport(14)->visited == false);
+	REQUIRE(airports1.findAirport(15)->visited == false);
+	//check that A star visited all points that would be
+	//necessary in a proper implementation
+
+}
+
+TEST_CASE("Verify that A_search only visits nodes with lowest f value 3"){
+  //tests what nodes have been visited, nodes to be visited has been calculated by hand
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_Search(&airports1, 13);
+	std::vector<int> expected = {13, 7, 11, 9};
+	std::vector<int> test = testA_Search.runA_search(9);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+	//first test output
+
+	REQUIRE(airports1.findAirport(1)->visited == true);
+	REQUIRE(airports1.findAirport(2)->visited == false);
+	REQUIRE(airports1.findAirport(3)->visited == false);
+	REQUIRE(airports1.findAirport(4)->visited == false);
+	REQUIRE(airports1.findAirport(5)->visited == false);
+	REQUIRE(airports1.findAirport(6)->visited == false);
+	REQUIRE(airports1.findAirport(7)->visited == true);
+	REQUIRE(airports1.findAirport(8)->visited == false);
+	REQUIRE(airports1.findAirport(9)->visited == true);
+	REQUIRE(airports1.findAirport(10)->visited == false);
+	REQUIRE(airports1.findAirport(11)->visited == true);
+	REQUIRE(airports1.findAirport(12)->visited == false);
 	REQUIRE(airports1.findAirport(13)->visited == true);
 	REQUIRE(airports1.findAirport(14)->visited == false);
 	REQUIRE(airports1.findAirport(15)->visited == false);
