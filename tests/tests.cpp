@@ -510,7 +510,9 @@ TEST_CASE("BFS_basic"){
 	REQUIRE( *it == airports1.findAirport(9)); ++it;
 	REQUIRE( *it == airports1.findAirport(6)); ++it;	
 	REQUIRE( *it == airports1.findAirport(10)); ++it;	
-	REQUIRE( *it == airports1.findAirport(14)); ++it;												
+	REQUIRE( *it == airports1.findAirport(14)); ++it;	
+	REQUIRE( *it == airports1.findAirport(15)); ++it;												
+											
 										
 }
 
