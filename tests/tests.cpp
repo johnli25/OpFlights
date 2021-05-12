@@ -484,10 +484,14 @@ TEST_CASE("Verify that updateElem works down with heuristic"){
 	}
 }
 
+//BFS tests
 TEST_CASE("BFS_basic"){
-
+  //probably want to do a for loop with the iterator
+  //check that each++ is what it should be by a paper evaluation
+  //of the traversal
 }
 
+//Dijkstra tests
 TEST_CASE("Verify that basic Dijkstra constructor works"){
 	std::vector<Graph::Airport> airports = file_to_Airport("tests/airportsSmall.dat.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/routesSmall.dat.txt");
