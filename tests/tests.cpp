@@ -8,6 +8,7 @@
 #include "../Heap.h"
 #include "../Dijkstra.h"
 #include "../A_search.h"
+#include "../AirportTraversal.h"
 
 TEST_CASE("Verify that file_to_Airport works on a small example") {
 	std::vector<Graph::Airport> airports = file_to_Airport("tests/airportsSmall.dat.txt");
@@ -489,6 +490,28 @@ TEST_CASE("BFS_basic"){
   //probably want to do a for loop with the iterator
   //check that each++ is what it should be by a paper evaluation
   //of the traversal
+    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+	Graph * expected = &airports1;
+	AirportTraversal TraversalTest(expected, 1);
+//	for (AirportTraversal::Iterator it = TraversalTest->begin(); it != TraversalTest->end(); ++it){
+	AirportTraversal::Iterator it = TraversalTest.begin();
+	REQUIRE( *it == airports1.findAirport(1)); ++it;
+	REQUIRE( *it == airports1.findAirport(12)); ++it;
+	REQUIRE( *it == airports1.findAirport(13)); ++it;
+	REQUIRE( *it == airports1.findAirport(3)); ++it;
+	REQUIRE( *it == airports1.findAirport(8)); ++it;
+	REQUIRE( *it == airports1.findAirport(7)); ++it;
+	REQUIRE( *it == airports1.findAirport(2)); ++it;
+	REQUIRE( *it == airports1.findAirport(5)); ++it;	
+	REQUIRE( *it == airports1.findAirport(11)); ++it;	
+	REQUIRE( *it == airports1.findAirport(4)); ++it;	
+	REQUIRE( *it == airports1.findAirport(9)); ++it;
+	REQUIRE( *it == airports1.findAirport(6)); ++it;	
+	REQUIRE( *it == airports1.findAirport(10)); ++it;	
+	REQUIRE( *it == airports1.findAirport(14)); ++it;												
+										
 }
 
 //Dijkstra tests
@@ -505,10 +528,10 @@ TEST_CASE("Verify that basic Dijkstra constructor works"){
 
 TEST_CASE("Verify that a basic Dijkstra output is correct"){
   //tests a path where there is only one route
-        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
-        Dijkstra testDijkstra(&airports1, 14);
+    Dijkstra testDijkstra(&airports1, 14);
 	std::vector<int> expected = {14, 10};
 	testDijkstra.runDijkstra();
 	std::vector<int> test = testDijkstra.findShortestPath(10);
