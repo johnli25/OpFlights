@@ -11,7 +11,7 @@ class AirportTraversal{
     class Iterator : std::iterator<std::forward_iterator_tag, Graph::Airport*>
     {
       public:
-        // Default constructor; used to create end()
+        // Default constructor; 
         Iterator();
         // Custom constructor
         // @param ap Pointer to graph of airports and routes start Pointer to the airport in the graph to begin BFS

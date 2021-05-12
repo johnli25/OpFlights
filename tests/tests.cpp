@@ -488,7 +488,7 @@ TEST_CASE("Verify that updateElem works down with heuristic"){
 //BFS tests
 TEST_CASE("Verify that a basic BFS traversal works"){
   //TRaversal has been calculated by hand based on our implementation
-        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
 	Graph * expected = &airports1;
@@ -515,7 +515,7 @@ TEST_CASE("Verify that a basic BFS traversal works"){
 
 TEST_CASE("Verify that a basic BFS traversal works 2"){
   //TRaversal has been calculated by hand based on our implementation
-        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
 	Graph * expected = &airports1;
@@ -535,14 +535,12 @@ TEST_CASE("Verify that a basic BFS traversal works 2"){
 	REQUIRE( *it == airports1.findAirport(6)); ++it;	
 	REQUIRE( *it == airports1.findAirport(10)); ++it;	
 	REQUIRE( *it == airports1.findAirport(14)); ++it;	
-	REQUIRE( *it == airports1.findAirport(15)); ++it;
-
-         						
+	REQUIRE( *it == airports1.findAirport(15)); ++it;      						
 }
 
 TEST_CASE("Verify that a basic BFS traversal works 3"){
   //TRaversal has been calculated by hand based on our implementation
-        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
 	Graph * expected = &airports1;
@@ -569,8 +567,8 @@ TEST_CASE("Verify that a basic BFS traversal works 3"){
 
 
 TEST_CASE("Verify that a BFS traversal works when starting node has no paths"){
-  //TRaversal has been calculated by hand based on our implementation
-        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+  //Traversal has been calculated by hand based on our implementation
+    std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
 	Graph * expected = &airports1;
@@ -590,9 +588,7 @@ TEST_CASE("Verify that a BFS traversal works when starting node has no paths"){
 	REQUIRE( *it == airports1.findAirport(9)); ++it;
 	REQUIRE( *it == airports1.findAirport(6)); ++it;	
 	REQUIRE( *it == airports1.findAirport(10)); ++it;	
-	REQUIRE( *it == airports1.findAirport(14)); ++it;	
-
-         						
+	REQUIRE( *it == airports1.findAirport(14)); ++it;	        						
 }
 
 
