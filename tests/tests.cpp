@@ -524,7 +524,7 @@ TEST_CASE("Verify that a basic BFS traversal works 2"){
 	REQUIRE( *it == airports1.findAirport(4)); ++it;
 	REQUIRE( *it == airports1.findAirport(8)); ++it;
 	REQUIRE( *it == airports1.findAirport(5)); ++it;
-        REQUIRE( *it == airports1.findAirport(1)); ++it;
+    REQUIRE( *it == airports1.findAirport(1)); ++it;
 	REQUIRE( *it == airports1.findAirport(12)); ++it;
 	REQUIRE( *it == airports1.findAirport(13)); ++it;
 	REQUIRE( *it == airports1.findAirport(3)); ++it;
