@@ -547,39 +547,18 @@ TEST_CASE("Verify that an empty Dijkstra output is correct"){
 
 }
 
-TEST_CASE("Verify that Dijkstras visits all nodes with a path from orgin"){
-  //tests what nodes have been visited, nodes to be visited has been calculated by hand
-        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+TEST_CASE("Verify that Dijkstra output is correct when there are no properly directed routes"){
+          std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
-        Dijkstra testDijkstra(&airports1, 1);
-	std::vector<int> expected = {1, 12, 8, 5, 4};
+        Dijkstra testDijkstra(&airports1, 10);
+	std::vector<int> expected = {14};
 	testDijkstra.runDijkstra();
-	std::vector<int> test = testDijkstra.findShortestPath(4);
+	std::vector<int> test = testDijkstra.findShortestPath(14);
 
         for (int i = 0; i < test.size(); i++){
 		REQUIRE(expected[i] == test[i]);
 	}
-	//first test output
-
-	REQUIRE(airports1.findAirport(1)->visited == true);
-	REQUIRE(airports1.findAirport(2)->visited == true);
-	REQUIRE(airports1.findAirport(3)->visited == true);
-	REQUIRE(airports1.findAirport(4)->visited == true);
-	REQUIRE(airports1.findAirport(5)->visited == true);
-	REQUIRE(airports1.findAirport(6)->visited == false);
-	REQUIRE(airports1.findAirport(7)->visited == true);
-	REQUIRE(airports1.findAirport(8)->visited == true);
-	REQUIRE(airports1.findAirport(9)->visited == true);
-	REQUIRE(airports1.findAirport(10)->visited == false);
-	REQUIRE(airports1.findAirport(11)->visited == true);
-	REQUIRE(airports1.findAirport(12)->visited == true);
-	REQUIRE(airports1.findAirport(13)->visited == true);
-	REQUIRE(airports1.findAirport(14)->visited == false);
-	REQUIRE(airports1.findAirport(15)->visited == false);
-	//check that dijkstra visited all points that would be
-	//accessible in a proper implementation
-
 }
 
 //A_search tests
@@ -637,6 +616,19 @@ TEST_CASE("Verify that an empty A_search output is correct"){
 		REQUIRE(expected[i] == test[i]);
 	}
 
+}
+
+TEST_CASE("Verify that A_search output is correct when there are no properly directed routes"){
+          std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_search(&airports1, 6);
+	std::vector<int> expected = {14};
+	std::vector<int> test = testA_search.runA_search(14);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
 }
 
 TEST_CASE("Verify that A_search only visits nodes with lowest f value"){
