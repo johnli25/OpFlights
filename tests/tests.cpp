@@ -499,6 +499,89 @@ TEST_CASE("Verify that basic Dijkstra constructor works"){
 	
 }
 
+TEST_CASE("Verify that a basic Dijkstra output is correct"){
+  //tests a path where there is only one route
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        Dijkstra testDijkstra(&airports1, 14);
+	std::vector<int> expected = {14, 10};
+	testDijkstra.runDijkstra();
+	std::vector<int> test = testDijkstra.findShortestPath(10);
+
+        for (int i = 0; i < test.size(); i++){
+	  REQUIRE(expected[i] == test[i]);
+	}
+
+}
+
+TEST_CASE("Verify that a complex Dijkstra output is correct"){
+  //tests a path where there are multiple routes, but one shortest route
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        Dijkstra testDijkstra(&airports1, 1);
+	std::vector<int> expected = {1, 12, 8};
+	testDijkstra.runDijkstra();
+	std::vector<int> test = testDijkstra.findShortestPath(8);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+
+}
+
+TEST_CASE("Verify that an empty Dijkstra output is correct"){
+  //tests a path where there is no route, should not give a path
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        Dijkstra testDijkstra(&airports1, 15);
+	std::vector<int> expected = {13};
+	testDijkstra.runDijkstra();
+	std::vector<int> test = testDijkstra.findShortestPath(13);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+
+}
+
+TEST_CASE("Verify that Dijkstras visits all nodes with a path from orgin"){
+  //tests what nodes have been visited, nodes to be visited has been calculated by hand
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        Dijkstra testDijkstra(&airports1, 1);
+	std::vector<int> expected = {1, 12, 8, 5, 4};
+	testDijkstra.runDijkstra();
+	std::vector<int> test = testDijkstra.findShortestPath(4);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
+	}
+	//first test output
+
+	REQUIRE(airports1.findAirport(1)->visited == true);
+	REQUIRE(airports1.findAirport(2)->visited == true);
+	REQUIRE(airports1.findAirport(3)->visited == true);
+	REQUIRE(airports1.findAirport(4)->visited == true);
+	REQUIRE(airports1.findAirport(5)->visited == true);
+	REQUIRE(airports1.findAirport(6)->visited == false);
+	REQUIRE(airports1.findAirport(7)->visited == true);
+	REQUIRE(airports1.findAirport(8)->visited == true);
+	REQUIRE(airports1.findAirport(9)->visited == true);
+	REQUIRE(airports1.findAirport(10)->visited == false);
+	REQUIRE(airports1.findAirport(11)->visited == true);
+	REQUIRE(airports1.findAirport(12)->visited == true);
+	REQUIRE(airports1.findAirport(13)->visited == true);
+	REQUIRE(airports1.findAirport(14)->visited == false);
+	REQUIRE(airports1.findAirport(15)->visited == false);
+	//check that dijkstra visited all points that would be
+	//accessible in a proper implementation
+
+}
+
 //A_search tests
 TEST_CASE("Verify that a basic A_search constructor works"){
 	std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
