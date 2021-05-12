@@ -1,3 +1,5 @@
+#include <chrono>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <cfloat>
@@ -583,8 +585,48 @@ TEST_CASE("Verify that A_search only visits nodes with lowest f value"){
 	REQUIRE(airports1.findAirport(13)->visited == true);
 	REQUIRE(airports1.findAirport(14)->visited == false);
 	REQUIRE(airports1.findAirport(15)->visited == false);
+	//check that A star visited all points that would be
+	//necessary in a proper implementation
 
+}
 
+TEST_CASE("Verify that A_search is more efficient than Dijkstra"){
 
-
+  	using std::chrono::high_resolution_clock;
+	using std::chrono::duration_cast;
+	using std::chrono::duration;
+	using std::chrono::milliseconds;
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/airportsALL.dat.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/routesALL.dat.txt");
+	Graph airports1(airports, routes);
+	double aStarAvg = 0;
+	A_search aStar = A_search(&airports1, 189);
+	//picked a route that is known to traverse a long path
+	for(int i = 0; i < 21; i++){ 
+	//run multiple times to minimize differences due to ram usage or background tasks
+	  auto t1 = high_resolution_clock::now();
+	  std::vector<int> traversal = aStar.runA_search(6744);
+	  auto t2 = high_resolution_clock::now();
+	  duration<double, std::milli> ms_double = t2 - t1;
+	  aStarAvg += ms_double.count();
+	}
+        aStarAvg /= 20;
+	double dijkstraAvg = 0;
+        Dijkstra dijkstra = Dijkstra(&airports1, 189);
+	//picked a route that is known to traverse a long path
+	for(int i = 0; i < 21; i++){ 
+	//run multiple times to minimize differences due to ram usage or background tasks
+	  auto t1 = high_resolution_clock::now();
+	  dijkstra.runDijkstra();
+	  std::vector<int> traversal = dijkstra.findShortestPath(6744);
+	  auto t2 = high_resolution_clock::now();
+	  duration<double, std::milli> ms_double = t2 - t1;
+	  dijkstraAvg += ms_double.count();
+	}
+        dijkstraAvg /= 20;
+	//std::cout << "aStar was " << dijkstraAvg - aStarAvg << 
+	//  "ms faster on average than Dijkstra." << std::endl;;
+	//used as reference data
+	
+	REQUIRE(aStarAvg < dijkstraAvg);
 }
