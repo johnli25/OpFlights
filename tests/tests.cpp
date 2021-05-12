@@ -5,6 +5,7 @@
 #include "../readFromFile.hpp"
 #include "../Heap.h"
 #include "../Dijkstra.h"
+#include "../A_search.h"
 
 TEST_CASE("Verify that file_to_Airport works on a small example") {
 	std::vector<Graph::Airport> airports = file_to_Airport("tests/airportsSmall.dat.txt");
@@ -497,7 +498,7 @@ TEST_CASE("Verify that basic Dijkstra constructor works"){
 }
 
 //A_search tests
-TEST_CASE("Verify that basic A_search constructor works"){
+TEST_CASE("Verify that a basic A_search constructor works"){
 	std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
@@ -508,32 +509,47 @@ TEST_CASE("Verify that basic A_search constructor works"){
 	
 }
 
-TEST_CASE("Verify that basic A_search output is correct"){
+TEST_CASE("Verify that a basic A_search output is correct"){
   //tests a path where there is only one route
         std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
-        A_search testA_Search(airports1, 1);
-	vector<int> expected = {1, 13, 7, 11, 9};
-	vector<int> test = testA_Search.runA_search(9);
+        A_search testA_Search(&airports1, 1);
+	std::vector<int> expected = {1, 13, 7, 11, 9};
+	std::vector<int> test = testA_Search.runA_search(9);
 
         for (int i = 0; i < test.size(); i++){
-		REQUIRE(expected[i] == test[i].distance);
+	  REQUIRE(expected[i] == test[i]);
 	}
 
 }
 
-TEST_CASE("Verify that basic A_search output is correct"){
+TEST_CASE("Verify that a complex A_search output is correct"){
   //tests a path where there are multiple routes, but one shortest route
         std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
-        A_search testA_Search(airports1, 2);
-	vector<int> expected = {1, 3, 2};
-	vector<int> test = testA_Search.runA_search(2);
+        A_search testA_Search(&airports1, 1);
+	std::vector<int> expected = {1, 3, 2};
+	std::vector<int> test = testA_Search.runA_search(2);
 
         for (int i = 0; i < test.size(); i++){
-		REQUIRE(expected[i] == test[i].distance);
+		REQUIRE(expected[i] == test[i]);
+	}
+
+}
+
+TEST_CASE("Verify that an empty A_search output is correct"){
+  //tests a path where there is no route, should not give a path
+        std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
+	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
+	Graph airports1(airports, routes);
+        A_search testA_Search(&airports1, 1);
+	std::vector<int> expected = {10};
+	std::vector<int> test = testA_Search.runA_search(10);
+
+        for (int i = 0; i < test.size(); i++){
+		REQUIRE(expected[i] == test[i]);
 	}
 
 }
@@ -543,23 +559,32 @@ TEST_CASE("Verify that A_search only visits nodes with lowest f value"){
         std::vector<Graph::Airport> airports = file_to_Airport("tests/asamp.txt");
 	std::vector<Graph::Route> routes = file_to_Route("tests/rsamp.txt");
 	Graph airports1(airports, routes);
-        A_search testA_Search(airports1, 1);
-	vector<int> expected = {1, 13, 7, 11, 9};
-	vector<int> test = testA_Search.runA_search(9);
+        A_search testA_Search(&airports1, 1);
+	std::vector<int> expected = {1, 13, 7, 11, 9};
+	std::vector<int> test = testA_Search.runA_search(9);
 
         for (int i = 0; i < test.size(); i++){
-		REQUIRE(expected[i] == test[i].distance);
+		REQUIRE(expected[i] == test[i]);
 	}
 	//first test output
 
 	REQUIRE(airports1.findAirport(1)->visited == true);
-	REQUIRE(airports1.findAirport(3)->visited == true);
 	REQUIRE(airports1.findAirport(2)->visited == true);
-	REQUIRE(airports1.findAirport(12)->visited == true);
-	REQUIRE(airports1.findAirport(8)->visited == true);
-	REQUIRE(airports1.findAirport(13)->visited == true);
+	REQUIRE(airports1.findAirport(3)->visited == true);
+	REQUIRE(airports1.findAirport(4)->visited == false);
+	REQUIRE(airports1.findAirport(5)->visited == false);
+	REQUIRE(airports1.findAirport(6)->visited == false);
 	REQUIRE(airports1.findAirport(7)->visited == true);
-	REQUIRE(airports1.findAirport(11)->visited == true);
+	REQUIRE(airports1.findAirport(8)->visited == true);
 	REQUIRE(airports1.findAirport(9)->visited == true);
+	REQUIRE(airports1.findAirport(10)->visited == false);
+	REQUIRE(airports1.findAirport(11)->visited == true);
+	REQUIRE(airports1.findAirport(12)->visited == true);
+	REQUIRE(airports1.findAirport(13)->visited == true);
+	REQUIRE(airports1.findAirport(14)->visited == false);
+	REQUIRE(airports1.findAirport(15)->visited == false);
+
+
+
 
 }

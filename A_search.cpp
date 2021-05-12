@@ -169,6 +169,11 @@ void A_search::setStart(int sourceId){
   sourceAirportId = sourceId;
 }
 
+Graph * A_search::getGraph(){
+  Graph * ptr = graph;
+  return ptr;
+}
+
 
 
 

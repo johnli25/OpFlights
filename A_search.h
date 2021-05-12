@@ -11,6 +11,7 @@ class A_search{
   std::vector<int> runA_search(int destinationAirportId);
   void setGraph(Graph * airports);
   void setStart(int sourceId);
+  Graph * getGraph();
  private:
   double distance(Graph::Airport * sourceAirport, Graph::Airport * destinationAirport);
   Graph * graph;
