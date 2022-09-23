@@ -1,4 +1,4 @@
-# CS225 Project bthuma2-johnwl2-jlin208-kpang3
+# CS225 Project Ben Thuma, Jin Lin, Katrina Pang
 
 ## Important Files
 1. `readFromFile.hpp` and `readFromFile.cpp`
@@ -33,3 +33,4 @@ Folder containing the data files
 2. `./test` to run the test
 
 ## [Presentation + demo video](https://drive.google.com/file/d/1Z04q6gUYK5Q_2S3jg4roAnz-g6oFIyCM/view?usp=sharing)
+
