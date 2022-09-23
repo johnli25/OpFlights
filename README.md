@@ -1,4 +1,4 @@
-Project Team: Ben Thuma, Jin Lin, Katrina Pang
+# Project Team: Ben Thuma, Jin Lin, Katrina Pang
 
 ## Important Files
 1. `readFromFile.hpp` and `readFromFile.cpp`
