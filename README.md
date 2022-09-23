@@ -32,4 +32,4 @@ Folder containing the data files
 1. `make test` to build tests/tests.cpp
 2. `./test` to run the test
 
-## [Final Presentation](https://drive.google.com/file/d/1Z04q6gUYK5Q_2S3jg4roAnz-g6oFIyCM/view?usp=sharing)
+## [Presentation + demo video](https://drive.google.com/file/d/1Z04q6gUYK5Q_2S3jg4roAnz-g6oFIyCM/view?usp=sharing)
