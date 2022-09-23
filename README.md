@@ -1,4 +1,4 @@
-# CS225 Project Ben Thuma, Jin Lin, Katrina Pang
+# CS225 Project team: Ben Thuma, Jin Lin, Katrina Pang
 
 ## Important Files
 1. `readFromFile.hpp` and `readFromFile.cpp`
