@@ -1,4 +1,6 @@
-# OpFlights (OpenFlights Optimal Flights) | Project Team: Ben Thuma, Jing Lin, Katrina Pang
+# OpFlights (OpenFlights Optimal Flights)
+
+## Project Team: Ben Thuma, Jing Lin, Katrina Pang
 
 ## Important Files
 1. `readFromFile.hpp` and `readFromFile.cpp`
