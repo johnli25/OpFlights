@@ -1,4 +1,4 @@
-# OpFlights (<ins>Op</ins>enFlights Optimal Flights)
+# OpFlights (<ins>Op</ins>en<ins>Flights</ins> <ins>Op</ins>timal <ins>Flights</ins>)
 
 ## Project Team: Ben Thuma, Jing Lin, Katrina Pang, John Li
 
